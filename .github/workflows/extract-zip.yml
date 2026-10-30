@@ -1,0 +1,68 @@
+name: Extract ZIP Automatically
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "*.zip"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Find and extract ZIP
+        shell: bash
+        run: |
+          set -e
+
+          ZIP_FILE=$(find . -maxdepth 1 -type f -iname "*.zip" | head -n 1)
+
+          if [ -z "$ZIP_FILE" ]; then
+            echo "ERROR: Root folder mein koi ZIP file nahi mili."
+            exit 1
+          fi
+
+          mkdir -p /tmp/aethervox-extract
+          unzip -oq "$ZIP_FILE" -d /tmp/aethervox-extract
+
+          ROOT="/tmp/aethervox-extract"
+          ITEMS=$(find "$ROOT" -mindepth 1 -maxdepth 1 \
+            ! -name "__MACOSX" | wc -l)
+
+          if [ "$ITEMS" -eq 1 ] && \
+             [ -d "$(find "$ROOT" -mindepth 1 -maxdepth 1 \
+             ! -name "__MACOSX" | head -n 1)" ]; then
+            ROOT=$(find "$ROOT" -mindepth 1 -maxdepth 1 \
+              ! -name "__MACOSX" | head -n 1)
+          fi
+
+          cp -a "$ROOT"/. .
+
+          echo "ZIP extraction completed."
+
+      - name: Commit extracted files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          git add -f "*.zip" || true
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Automatically extract uploaded ZIP"
+            git push origin HEAD:main
+          fi
