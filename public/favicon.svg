@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <defs>
+    <linearGradient id="flux_fav_grad" x1="4" y1="4" x2="44" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38bdf8"/>
+      <stop offset="0.5" stop-color="#818cf8"/>
+      <stop offset="1" stop-color="#c084fc"/>
+    </linearGradient>
+    <filter id="flux_fav_glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="#080c14"/>
+  <path d="M24 6L40 22L24 42L8 22L24 6Z" stroke="url(#flux_fav_grad)" stroke-width="2.5" fill="rgba(56, 189, 248, 0.12)" filter="url(#flux_fav_glow)"/>
+  <path d="M15 22C17 17 21 17 24 22C27 27 31 27 33 22" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+  <circle cx="24" cy="22" r="3.2" fill="#38bdf8"/>
+  <circle cx="24" cy="22" r="1.4" fill="#ffffff"/>
+</svg>

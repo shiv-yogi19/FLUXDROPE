@@ -1,0 +1,126 @@
+/**
+ * FLUXDROPE - Peer-to-Peer End-to-End Encrypted File Sharing
+ * obsidian.css - Theme 2: Obsidian
+ * Aesthetics: Ultra-deep obsidian stone, volcanic gold & titanium accents,
+ * smoky dark glass surfaces, hyper-luxury matte & gloss contrast.
+ */
+
+[data-theme="obsidian"],
+:root[data-theme="obsidian"] {
+  /* Theme Identity */
+  --theme-id: "obsidian";
+  --theme-name: "Obsidian";
+
+  /* Color Palette */
+  --bg-surface: #040405;
+  --bg-gradient: radial-gradient(120% 120% at 50% 0%, #17171c 0%, #08080a 50%, #020203 100%);
+  --bg-mesh: radial-gradient(at 20% 15%, rgba(245, 158, 11, 0.09) 0px, transparent 42%),
+             radial-gradient(at 80% 85%, rgba(217, 119, 6, 0.07) 0px, transparent 45%);
+
+  /* Typography Colors */
+  --text-primary: #f4f4f6;
+  --text-secondary: #a1a1aa;
+  --text-muted: #52525b;
+  --text-inverted: #09090b;
+
+  /* Accent Vibrancies (Volcanic Amber & Pure Titanium) */
+  --accent-primary: #f59e0b;       /* Volcanic Amber */
+  --accent-secondary: #d97706;     /* Burnished Gold */
+  --accent-tertiary: #e4e4e7;      /* Brushed Titanium */
+  --accent-gradient: linear-gradient(135deg, #fcd34d 0%, #f59e0b 50%, #b45309 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #fef08a 0%, #fbbf24 50%, #d97706 100%);
+  --accent-glow: 0 0 28px rgba(245, 158, 11, 0.38);
+  --accent-glow-secondary: 0 0 28px rgba(217, 119, 6, 0.3);
+
+  /* Status Colors */
+  --status-success: #10b981;
+  --status-warning: #f59e0b;
+  --status-error: #ef4444;
+  --status-info: #38bdf8;
+
+  /* Glassmorphism Surface Tokens (Smoky Obsidian Glass) */
+  --glass-bg: rgba(18, 18, 22, 0.68);
+  --glass-bg-subtle: rgba(18, 18, 22, 0.42);
+  --glass-bg-elevated: rgba(28, 28, 35, 0.88);
+  --glass-bg-interactive: rgba(245, 158, 11, 0.06);
+
+  /* Glass Borders */
+  --glass-border: rgba(255, 255, 255, 0.09);
+  --glass-border-bright: rgba(245, 158, 11, 0.4);
+  --glass-border-accent: rgba(245, 158, 11, 0.55);
+
+  /* Reflections & Depth */
+  --glass-reflection: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.02) 40%,
+    transparent 100%
+  );
+  --glass-inner-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.14),
+                       inset 0 -1px 3px rgba(0, 0, 0, 0.7);
+  --glass-shadow: 0 26px 65px -15px rgba(0, 0, 0, 0.9),
+                  0 0 1px 1px rgba(245, 158, 11, 0.08);
+
+  /* Blur Intensities */
+  --blur-sm: blur(12px);
+  --blur-md: blur(20px);
+  --blur-lg: blur(30px);
+}
+
+/* Obsidian Specific Component Overrides */
+[data-theme="obsidian"] .glass-card {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  box-shadow: var(--glass-inner-shadow), var(--glass-shadow);
+}
+
+[data-theme="obsidian"] .glass-card-interactive:hover {
+  border-color: var(--glass-border-bright);
+  box-shadow: 0 30px 65px -12px rgba(0, 0, 0, 0.95),
+              0 0 25px rgba(245, 158, 11, 0.22),
+              var(--glass-inner-shadow);
+}
+
+[data-theme="obsidian"] .glass-btn-primary {
+  background: var(--accent-gradient);
+  border-color: rgba(252, 211, 77, 0.5);
+  color: #070709;
+  font-weight: var(--fw-bold);
+  box-shadow: 0 8px 25px -4px rgba(245, 158, 11, 0.4),
+              var(--glass-inner-shadow);
+}
+
+[data-theme="obsidian"] .glass-btn-primary:hover {
+  background: var(--accent-gradient-hover);
+  box-shadow: 0 12px 30px -4px rgba(245, 158, 11, 0.6),
+              var(--accent-glow);
+  color: #000000;
+}
+
+[data-theme="obsidian"] .glass-input:focus,
+[data-theme="obsidian"] .glass-textarea:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.22),
+              inset 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* Obsidian 3D Glass Sphere */
+[data-theme="obsidian"] .glass-sphere {
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(245, 158, 11, 0.22) 25%,
+    rgba(180, 83, 9, 0.15) 55%,
+    rgba(10, 10, 14, 0.96) 100%
+  );
+  box-shadow: inset -10px -15px 30px rgba(0, 0, 0, 0.95),
+              inset 8px 10px 20px rgba(255, 255, 255, 0.2),
+              0 25px 60px rgba(0, 0, 0, 0.9),
+              0 0 35px rgba(245, 158, 11, 0.35);
+}
+
+[data-theme="obsidian"] .glass-sphere-core {
+  background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 60%, #b45309 100%);
+  opacity: 0.75;
+}

@@ -1,0 +1,954 @@
+/**
+ * FLUXDROPE - Peer-to-Peer End-to-End Encrypted File Sharing
+ * animations.css - Complete 39+ Keyframe Animations & Motion Utility Classes
+ * Categorized: Intro, Dashboard, File Selection, Connection Setup,
+ * Sending, Receiving, QR & Link, Expired Session, and Accessibility Overrides.
+ */
+
+/* ==========================================================================
+   1. INTRO ANIMATIONS (4)
+   ========================================================================== */
+
+/* 1.1 Logo Reveal 3D */
+@keyframes logo-reveal-3d {
+  0% {
+    opacity: 0;
+    transform: perspective(1000px) rotateX(45deg) rotateY(-20deg) scale(0.7) translateY(40px);
+    filter: blur(12px) brightness(1.8);
+  }
+  60% {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(-8deg) rotateY(4deg) scale(1.05) translateY(-6px);
+    filter: blur(0px) brightness(1.2);
+  }
+  85% {
+    transform: perspective(1000px) rotateX(2deg) rotateY(-1deg) scale(0.99) translateY(1px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1) translateY(0);
+    filter: blur(0px) brightness(1);
+  }
+}
+
+.anim-logo-reveal-3d {
+  animation: logo-reveal-3d 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity, filter;
+}
+
+/* 1.2 Particles Float */
+@keyframes particles-float {
+  0% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translateY(-25px) translateX(12px) rotate(120deg);
+    opacity: 0.85;
+  }
+  66% {
+    transform: translateY(-48px) translateX(-15px) rotate(240deg);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+.anim-particles-float {
+  animation: particles-float 8s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* 1.3 Sphere Rotate */
+@keyframes sphere-rotate {
+  0% {
+    transform: rotate3d(1, 1, 0, 0deg) scale(1);
+  }
+  50% {
+    transform: rotate3d(1, 1, 0, 180deg) scale(1.04);
+  }
+  100% {
+    transform: rotate3d(1, 1, 0, 360deg) scale(1);
+  }
+}
+
+.anim-sphere-rotate {
+  animation: sphere-rotate 16s linear infinite;
+  will-change: transform;
+}
+
+/* 1.4 Tagline Fade */
+@keyframes tagline-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+    letter-spacing: 0.15em;
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: 0.02em;
+    filter: blur(0);
+  }
+}
+
+.anim-tagline-fade {
+  animation: tagline-fade 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   2. DASHBOARD ANIMATIONS (5)
+   ========================================================================== */
+
+/* 2.1 Card Entrance */
+@keyframes card-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(28px) scale(0.96);
+    filter: blur(4px);
+  }
+  70% {
+    transform: translateY(-3px) scale(1.008);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.anim-card-entrance {
+  animation: card-entrance 0.55s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards;
+}
+
+/* 2.2 Status Pulse */
+@keyframes status-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    transform: scale(1);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+    transform: scale(1.08);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    transform: scale(1);
+  }
+}
+
+.anim-status-pulse {
+  animation: status-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* 2.3 Nav Slide */
+@keyframes nav-slide {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-nav-slide {
+  animation: nav-slide 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 2.4 Icon Morph */
+@keyframes icon-morph {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  40% {
+    transform: scale(0.78) rotate(-15deg);
+  }
+  75% {
+    transform: scale(1.15) rotate(10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.anim-icon-morph {
+  animation: icon-morph 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 2.5 Content Fade */
+@keyframes content-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-content-fade {
+  animation: content-fade 0.35s ease-out forwards;
+}
+
+/* ==========================================================================
+   3. FILE SELECTION ANIMATIONS (4)
+   ========================================================================== */
+
+/* 3.1 File Drop Bounce */
+@keyframes file-drop-bounce {
+  0% {
+    transform: scale(0.92);
+    border-color: var(--accent-primary);
+    background-color: rgba(56, 189, 248, 0.15);
+  }
+  50% {
+    transform: scale(1.03);
+    border-color: var(--accent-secondary);
+    background-color: rgba(168, 85, 247, 0.22);
+  }
+  100% {
+    transform: scale(1);
+    border-color: var(--glass-border-bright);
+    background-color: var(--glass-bg);
+  }
+}
+
+.anim-file-drop-bounce {
+  animation: file-drop-bounce 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* 3.2 File Add Pop */
+@keyframes file-add-pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(20px);
+  }
+  70% {
+    transform: scale(1.06) translateY(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.anim-file-add-pop {
+  animation: file-add-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 3.3 File Remove Slide */
+@keyframes file-remove-slide {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    max-height: 100px;
+  }
+  40% {
+    opacity: 0.6;
+    transform: translateX(35px) scale(0.96);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-100%) scale(0.8);
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.anim-file-remove-slide {
+  animation: file-remove-slide 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 3.4 Total Count Update */
+@keyframes total-count-update {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.35) rotate(-5deg);
+    color: var(--accent-primary);
+  }
+  75% {
+    transform: scale(0.92) rotate(3deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.anim-total-count-update {
+  animation: total-count-update 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ==========================================================================
+   4. CONNECTION SETUP ANIMATIONS (5)
+   ========================================================================== */
+
+/* 4.1 Connecting Spin */
+@keyframes connecting-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.anim-connecting-spin {
+  animation: connecting-spin 1.2s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+}
+
+/* 4.2 Signal Wave */
+@keyframes signal-wave {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.9;
+    border-width: 3px;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+    border-width: 1px;
+  }
+}
+
+.anim-signal-wave {
+  position: relative;
+}
+
+.anim-signal-wave::before,
+.anim-signal-wave::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--accent-primary);
+  animation: signal-wave 2.2s cubic-bezier(0.1, 0.5, 0.3, 1) infinite;
+  pointer-events: none;
+}
+
+.anim-signal-wave::after {
+  animation-delay: 1.1s;
+}
+
+/* 4.3 Handshake Pulse */
+@keyframes handshake-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7), 0 0 10px rgba(168, 85, 247, 0.5);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 35px 12px rgba(56, 189, 248, 0.3), 0 0 25px rgba(168, 85, 247, 0.4);
+    transform: scale(1.05);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0), 0 0 10px rgba(168, 85, 247, 0);
+    transform: scale(1);
+  }
+}
+
+.anim-handshake-pulse {
+  animation: handshake-pulse 1.8s ease-in-out infinite;
+}
+
+/* 4.4 Key Exchange Glow */
+@keyframes key-exchange-glow {
+  0% {
+    filter: drop-shadow(0 0 2px var(--accent-primary)) brightness(1);
+  }
+  35% {
+    filter: drop-shadow(0 0 18px var(--accent-primary)) drop-shadow(0 0 30px var(--accent-secondary)) brightness(1.5);
+  }
+  70% {
+    filter: drop-shadow(0 0 25px var(--status-success)) brightness(1.3);
+  }
+  100% {
+    filter: drop-shadow(0 0 4px var(--status-success)) brightness(1);
+  }
+}
+
+.anim-key-exchange-glow {
+  animation: key-exchange-glow 1.5s ease-in-out forwards;
+}
+
+/* 4.5 Channel Open */
+@keyframes channel-open {
+  0% {
+    clip-path: polygon(49% 0, 51% 0, 51% 100%, 49% 100%);
+    opacity: 0.2;
+    transform: scaleY(0.5);
+  }
+  60% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 0.9;
+    transform: scaleY(1.02);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+.anim-channel-open {
+  animation: channel-open 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   5. SENDING ANIMATIONS (7)
+   ========================================================================== */
+
+/* 5.1 Energy Tunnel */
+@keyframes energy-tunnel {
+  0% {
+    transform: perspective(400px) translateZ(-200px) rotate(0deg);
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: perspective(400px) translateZ(250px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.anim-energy-tunnel {
+  animation: energy-tunnel 2s cubic-bezier(0.1, 0.7, 0.3, 1) infinite;
+}
+
+/* 5.2 Quantum Particles */
+@keyframes quantum-particles {
+  0% {
+    transform: translateY(0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-80px) scale(1.4);
+    opacity: 0;
+  }
+}
+
+.anim-quantum-particles {
+  animation: quantum-particles 1.4s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
+}
+
+/* 5.3 Holographic Beam */
+@keyframes holographic-beam {
+  0% {
+    background-position: 0% 0%;
+    opacity: 0.4;
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    filter: hue-rotate(90deg) brightness(1.3);
+  }
+  100% {
+    background-position: 200% 0%;
+    opacity: 0.4;
+    filter: hue-rotate(180deg);
+  }
+}
+
+.anim-holographic-beam {
+  background: linear-gradient(90deg, transparent, var(--accent-primary), var(--accent-secondary), transparent);
+  background-size: 200% 100%;
+  animation: holographic-beam 2.2s linear infinite;
+}
+
+/* 5.4 Liquid Glass Flow */
+@keyframes liquid-glass-flow {
+  0% {
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%;
+    transform: translateY(-8px) rotate(120deg);
+  }
+  66% {
+    border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%;
+    transform: translateY(4px) rotate(240deg);
+  }
+  100% {
+    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+    transform: translateY(0px) rotate(360deg);
+  }
+}
+
+.anim-liquid-glass-flow {
+  animation: liquid-glass-flow 6s ease-in-out infinite;
+}
+
+/* 5.5 Orbital Transfer */
+@keyframes orbital-transfer {
+  0% {
+    transform: rotate(0deg) translateX(55px) rotate(0deg) scale(0.8);
+    opacity: 0.3;
+  }
+  50% {
+    transform: rotate(180deg) translateX(75px) rotate(-180deg) scale(1.2);
+    opacity: 1;
+    filter: drop-shadow(0 0 15px var(--accent-primary));
+  }
+  100% {
+    transform: rotate(360deg) translateX(55px) rotate(-360deg) scale(0.8);
+    opacity: 0.3;
+  }
+}
+
+.anim-orbital-transfer {
+  animation: orbital-transfer 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* 5.6 Cyber Stream */
+@keyframes cyber-stream {
+  0% {
+    stroke-dashoffset: 800;
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px var(--accent-primary));
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.2;
+  }
+}
+
+.anim-cyber-stream {
+  stroke-dasharray: 200 40;
+  animation: cyber-stream 1.8s linear infinite;
+}
+
+/* 5.7 Crystal Transmission */
+@keyframes crystal-transmission {
+  0% {
+    clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
+    filter: brightness(0.8) hue-rotate(0deg);
+  }
+  50% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    filter: brightness(1.6) hue-rotate(45deg);
+  }
+  100% {
+    clip-path: polygon(50% 0%, 50% 0%, 50% 100%, 50% 100%);
+    filter: brightness(0.8) hue-rotate(90deg);
+  }
+}
+
+.anim-crystal-transmission {
+  animation: crystal-transmission 2.5s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   6. RECEIVING ANIMATIONS (7)
+   ========================================================================== */
+
+/* 6.1 Digital Materialization */
+@keyframes digital-materialization {
+  0% {
+    opacity: 0;
+    transform: scale(0.6) translateY(20px);
+    filter: contrast(300%) brightness(2.5) blur(10px);
+  }
+  40% {
+    opacity: 0.7;
+    filter: contrast(180%) brightness(1.8) blur(4px);
+  }
+  80% {
+    opacity: 0.95;
+    transform: scale(1.02) translateY(-2px);
+    filter: contrast(110%) brightness(1.1) blur(0.5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: contrast(100%) brightness(1) blur(0);
+  }
+}
+
+.anim-digital-materialization {
+  animation: digital-materialization 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 6.2 Crystal Formation */
+@keyframes crystal-formation {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-35deg);
+    border-radius: 50%;
+  }
+  60% {
+    transform: scale(1.08) rotate(5deg);
+    border-radius: 4px;
+    box-shadow: 0 0 30px var(--accent-primary);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    border-radius: var(--radius-lg);
+  }
+}
+
+.anim-crystal-formation {
+  animation: crystal-formation 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* 6.3 Energy Reception */
+@keyframes energy-reception {
+  0% {
+    box-shadow: inset 0 0 50px rgba(56, 189, 248, 0.8), 0 0 40px rgba(168, 85, 247, 0.6);
+    transform: scale(0.97);
+  }
+  50% {
+    box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.3), 0 0 15px rgba(168, 85, 247, 0.2);
+    transform: scale(1.02);
+  }
+  100% {
+    box-shadow: inset 0 0 0 rgba(56, 189, 248, 0), 0 0 0 rgba(168, 85, 247, 0);
+    transform: scale(1);
+  }
+}
+
+.anim-energy-reception {
+  animation: energy-reception 1.1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* 6.4 Orbital Capture */
+@keyframes orbital-capture {
+  0% {
+    transform: rotate(360deg) translateX(120px) scale(0.3);
+    opacity: 0;
+  }
+  50% {
+    transform: rotate(180deg) translateX(45px) scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(0deg) translateX(0px) scale(1);
+    opacity: 1;
+  }
+}
+
+.anim-orbital-capture {
+  animation: orbital-capture 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 6.5 Holographic Assembly */
+@keyframes holographic-assembly {
+  0% {
+    opacity: 0;
+    transform: perspective(600px) rotateX(90deg) scale(0.7);
+    filter: hue-rotate(180deg) saturate(200%);
+  }
+  60% {
+    transform: perspective(600px) rotateX(-12deg) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(600px) rotateX(0deg) scale(1);
+    filter: hue-rotate(0deg) saturate(100%);
+  }
+}
+
+.anim-holographic-assembly {
+  animation: holographic-assembly 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 6.6 Liquid Glass Reveal */
+@keyframes liquid-glass-reveal {
+  0% {
+    opacity: 0;
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(0px);
+    transform: scale(0.88);
+  }
+  50% {
+    opacity: 0.8;
+    -webkit-backdrop-filter: blur(35px);
+    backdrop-filter: blur(35px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-backdrop-filter: var(--blur-md);
+    backdrop-filter: var(--blur-md);
+    transform: scale(1);
+  }
+}
+
+.anim-liquid-glass-reveal {
+  animation: liquid-glass-reveal 0.65s ease-out forwards;
+}
+
+/* 6.7 Quantum Arrival */
+@keyframes quantum-arrival {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.9);
+    filter: brightness(3) blur(8px);
+  }
+  40% {
+    opacity: 1;
+    filter: brightness(2) blur(2px);
+  }
+  75% {
+    transform: translateY(3px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: brightness(1) blur(0);
+  }
+}
+
+.anim-quantum-arrival {
+  animation: quantum-arrival 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   7. QR & LINK ANIMATIONS (4)
+   ========================================================================== */
+
+/* 7.1 QR Reveal Scan */
+@keyframes qr-reveal-scan {
+  0% {
+    clip-path: inset(0 0 100% 0);
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.anim-qr-reveal-scan {
+  position: relative;
+  animation: qr-reveal-scan 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Laser sweep bar across QR */
+.anim-qr-reveal-scan::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-gradient);
+  box-shadow: 0 0 12px var(--accent-primary);
+  animation: qr-laser-sweep 2.5s ease-in-out infinite alternate;
+}
+
+@keyframes qr-laser-sweep {
+  0% { top: 0%; opacity: 0.8; }
+  100% { top: 98%; opacity: 0.8; }
+}
+
+/* 7.2 Link Copy Flash */
+@keyframes link-copy-flash {
+  0% {
+    background-color: transparent;
+    transform: scale(1);
+  }
+  30% {
+    background-color: rgba(16, 185, 129, 0.35);
+    border-color: var(--status-success);
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.5);
+  }
+  100% {
+    background-color: transparent;
+    transform: scale(1);
+  }
+}
+
+.anim-link-copy-flash {
+  animation: link-copy-flash 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 7.3 QR Template Switch */
+@keyframes qr-template-switch {
+  0% {
+    transform: perspective(600px) rotateY(0deg) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: perspective(600px) rotateY(90deg) scale(0.85);
+    opacity: 0.2;
+    filter: blur(4px);
+  }
+  100% {
+    transform: perspective(600px) rotateY(0deg) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.anim-qr-template-switch {
+  animation: qr-template-switch 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 7.4 Share Burst */
+@keyframes share-burst {
+  0% {
+    transform: scale(0.85);
+    box-shadow: 0 0 0 0 var(--accent-primary);
+  }
+  40% {
+    transform: scale(1.15);
+    box-shadow: 0 0 35px 12px rgba(56, 189, 248, 0.5);
+  }
+  75% {
+    transform: scale(0.96);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0);
+  }
+}
+
+.anim-share-burst {
+  animation: share-burst 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ==========================================================================
+   8. EXPIRED SESSION ANIMATIONS (3)
+   ========================================================================== */
+
+/* 8.1 Sphere Dissolve */
+@keyframes sphere-dissolve {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+    filter: blur(0);
+  }
+  40% {
+    transform: scale(1.1) rotate(15deg);
+    filter: blur(6px) brightness(1.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.4) rotate(45deg);
+    filter: blur(25px) brightness(0.2);
+    opacity: 0;
+  }
+}
+
+.anim-sphere-dissolve {
+  animation: sphere-dissolve 1.2s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+/* 8.2 Particles Vanish */
+@keyframes particles-vanish {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.8) translateY(-40px);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(0) translateY(-90px);
+    opacity: 0;
+  }
+}
+
+.anim-particles-vanish {
+  animation: particles-vanish 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* 8.3 Session Expired Fade */
+@keyframes session-expired-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+    filter: grayscale(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: grayscale(0%);
+  }
+}
+
+.anim-session-expired-fade {
+  animation: session-expired-fade 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   9. ANIMATION HELPER CLASSES & STAGGER
+   ========================================================================== */
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-700 { animation-delay: 700ms; }
+.delay-1000 { animation-delay: 1000ms; }
+
+.duration-fast { animation-duration: 200ms; }
+.duration-normal { animation-duration: 400ms; }
+.duration-slow { animation-duration: 800ms; }
+.duration-very-slow { animation-duration: 1500ms; }
+
+.anim-infinite { animation-iteration-count: infinite; }
+.anim-paused { animation-play-state: paused !important; }
+.anim-running { animation-play-state: running !important; }
+
+/* ==========================================================================
+   10. PREFERS-REDUCED-MOTION OVERRIDES (ACCESSIBILITY)
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .anim-particles-float,
+  .anim-sphere-rotate,
+  .anim-connecting-spin,
+  .anim-signal-wave::before,
+  .anim-signal-wave::after,
+  .anim-energy-tunnel,
+  .anim-quantum-particles,
+  .anim-holographic-beam,
+  .anim-liquid-glass-flow,
+  .anim-orbital-transfer,
+  .anim-cyber-stream,
+  .anim-crystal-transmission,
+  .shimmer-overlay::after,
+  .glass-sphere-core,
+  .glass-sphere-ring {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" data-layout="m1-aurora" data-perf-mode="balanced">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>FLUXDROPE — Created By Shiv Yogi</title>
+
+  <!-- Branding & Meta -->
+  <meta name="description" content="FLUXDROPE: High-performance Liquid Glass Peer-to-Peer File Transfer with WebRTC DataChannel. Created By Shiv Yogi.">
+  <meta name="author" content="Shiv Yogi">
+  <meta name="theme-color" content="#07090e">
+
+  <!-- OpenGraph Social Cards -->
+  <meta property="og:title" content="FLUXDROPE — Peer-to-Peer File Transfer">
+  <meta property="og:description" content="Liquid Glass Interface, Real WebRTC DataChannel, 7-Attempt Lockout, Universal Media Viewers. Created By Shiv Yogi.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="/favicon.svg">
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/liquid-glass.css">
+  <link rel="stylesheet" href="/css/intro.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/viewers.css">
+  <link rel="stylesheet" href="/css/layouts/layouts.css">
+</head>
+<body class="theme-dark">
+
+  <!-- Ambient Liquid Mesh Background -->
+  <div class="ambient-liquid-bg" aria-hidden="true">
+    <div class="aurora-orb orb-1"></div>
+    <div class="aurora-orb orb-2"></div>
+    <div class="aurora-orb orb-3"></div>
+  </div>
+
+  <!-- Mandatory Cinematic Introduction (No Skip Button) -->
+  <div class="cinematic-intro-overlay" id="cinematicIntro" style="display: none;" aria-label="Introduction">
+    <div class="intro-glass-wave"></div>
+    <div class="intro-content-wrap">
+      <div class="intro-logo">
+        <svg width="84" height="84" viewBox="0 0 40 40" fill="none">
+          <path d="M20 3L35 18L20 37L5 18L20 3Z" stroke="url(#intro_flux_grad)" stroke-width="2.5" fill="rgba(56,189,248,0.12)"/>
+          <path d="M12 18C14 13 18 13 20 18C22 23 26 23 28 18" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="20" cy="18" r="3.2" fill="#38bdf8"/>
+          <defs>
+            <linearGradient id="intro_flux_grad" x1="0" y1="0" x2="40" y2="40">
+              <stop stop-color="#38bdf8"/>
+              <stop offset="0.5" stop-color="#818cf8"/>
+              <stop offset="1" stop-color="#c084fc"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <h1 class="intro-title">FLUXDROPE</h1>
+      <div class="intro-creator">Created By Shiv Yogi</div>
+    </div>
+  </div>
+
+  <!-- Viewport App Shell -->
+  <div class="app-viewport">
+
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+      <div class="header-inner">
+        <div class="brand-identity" id="headerBrandHome" title="FLUXDROPE Home">
+          <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+            <path d="M20 3L35 18L20 37L5 18L20 3Z" stroke="#38bdf8" stroke-width="2.2" fill="rgba(56,189,248,0.1)"/>
+            <path d="M12 18C14 13 18 13 20 18C22 23 26 23 28 18" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="20" cy="18" r="3" fill="#38bdf8"/>
+          </svg>
+          <div class="brand-text-group">
+            <span class="brand-title">FLUXDROPE</span>
+            <span class="brand-byline">Created By Shiv Yogi</span>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <div class="connection-indicator-pill" id="connStatusPill">
+            <span class="conn-dot"></span>
+            <span id="connStatusText">Ready</span>
+          </div>
+
+          <!-- Three-Line Menu Hamburger SVG -->
+          <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open Navigation Menu" title="Menu">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6"/>
+              <line x1="3" y1="12" x2="21" y2="12"/>
+              <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Slide-in Navigation Drawer -->
+    <div class="nav-backdrop" id="navBackdrop"></div>
+    <aside class="nav-drawer" id="navDrawer" aria-label="Application Navigation">
+      <div class="nav-drawer-header">
+        <div class="brand-text-group">
+          <span class="brand-title">FLUXDROPE</span>
+          <span class="brand-byline">Created By Shiv Yogi</span>
+        </div>
+        <button class="modal-close-btn" id="navCloseBtn" aria-label="Close menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </div>
+      <div class="nav-drawer-body">
+        <ul class="nav-items-list">
+          <!-- Populated dynamically with all 12 items -->
+        </ul>
+      </div>
+      <div class="nav-drawer-footer">
+        <span>FLUXDROPE v1.0.0 • Created By Shiv Yogi</span>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+
+      <!-- Transfer Tips Ticker -->
+      <div class="tips-ticker-bar" id="tipsTicker">
+        <span class="tips-tag">Tip</span>
+        <span class="tips-text" id="transferTipText">Keep both devices connected during active file transfers.</span>
+      </div>
+
+      <!-- 1. HOME VIEW -->
+      <section class="view-section active" id="view-home">
+        <div class="dashboard-grid">
+
+          <!-- Hero Action Cards -->
+          <div class="liquid-glass-card hero-card-send">
+            <div class="glass-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <span>Transmit</span>
+            </div>
+            <h2 style="font-size: 26px; font-weight: 800; margin: 14px 0 6px;">Send Files</h2>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">
+              Stream any file directly to peer receivers via encrypted WebRTC DataChannel chunks.
+            </p>
+            <button class="btn btn-primary" id="heroSendBtn" style="width: 100%;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+              <span>Select Files to Send</span>
+            </button>
+          </div>
+
+          <div class="liquid-glass-card hero-card-receive">
+            <div class="glass-pill">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/><path d="M20 15v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4"/></svg>
+              <span>Download</span>
+            </div>
+            <h2 style="font-size: 26px; font-weight: 800; margin: 14px 0 6px;">Receive Files</h2>
+            <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 20px;">
+              Join a sender session using a 6-digit code, temporary share link, or QR code.
+            </p>
+            <button class="btn btn-secondary" id="heroReceiveBtn" style="width: 100%;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              <span>Enter Joining Code</span>
+            </button>
+          </div>
+
+          <!-- Real-Time Telemetry & Diagnostics Overview -->
+          <div class="liquid-glass-card telemetry-card" style="grid-column: 1 / -1; margin-top: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+              <h3 style="font-size: 16px; font-weight: 700;">Connection Telemetry & Diagnostics</h3>
+              <span class="glass-pill" id="telemetryStatusPill">Standby</span>
+            </div>
+            <div id="diagnosticsDisplayArea">
+              <!-- Diagnostics updated dynamically -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 2. SEND FILES VIEW -->
+      <section class="view-section" id="view-send">
+        <div class="liquid-glass-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+            <div>
+              <h2 style="font-size: 22px; font-weight: 800;">Send Files</h2>
+              <p style="font-size: 13px; color: var(--text-muted);">Select files of any format or size. Preserves original bytes.</p>
+            </div>
+            <button class="btn btn-sm btn-secondary" id="clearSelectedBtn" style="display: none;">Clear All</button>
+          </div>
+
+          <!-- Drag and Drop Box -->
+          <div class="file-drop-zone" id="sendDropZone">
+            <input type="file" id="sendFileInput" multiple class="sr-only">
+            <div class="drop-icon-wrap">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <h3 class="drop-title">Drag & drop files here</h3>
+            <p class="drop-sub">or click to browse from device</p>
+          </div>
+
+          <!-- Selected Files List -->
+          <div class="selected-files-list" id="selectedFilesList">
+            <div class="empty-list-placeholder">No files selected yet.</div>
+          </div>
+
+          <!-- Total Meta and Options -->
+          <div style="display: flex; justify-content: space-between; margin-top: 16px; font-size: 13px; color: var(--text-muted);">
+            <span>Total: <strong id="sendTotalCount" style="color: #ffffff;">0 files</strong></span>
+            <span>Size: <strong id="sendTotalSize" style="color: #ffffff;">0 B</strong></span>
+          </div>
+
+          <!-- Security & Session Expiry Options -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 20px;">
+            <div>
+              <label style="font-size: 12px; color: var(--text-subtle); display: block; margin-bottom: 6px;">Protection Password (Optional)</label>
+              <div style="display: flex; gap: 6px;">
+                <input type="text" class="flux-input" id="sendPasswordInput" placeholder="Leave empty for public transfer">
+                <button class="btn btn-sm btn-secondary" id="genRandomPassBtn" title="Generate random password">Gen</button>
+              </div>
+            </div>
+
+            <div>
+              <label style="font-size: 12px; color: var(--text-subtle); display: block; margin-bottom: 6px;">Session Expiry</label>
+              <select class="flux-select" id="sendExpirySelect">
+                <option value="900000">15 Minutes</option>
+                <option value="3600000" selected>1 Hour</option>
+                <option value="21600000">6 Hours</option>
+                <option value="86400000">24 Hours</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-top: 24px;">
+            <button class="btn btn-primary" id="startSendBtn" style="width: 100%;" disabled>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+              <span>Initialize Peer Transfer</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. RECEIVE FILES VIEW -->
+      <section class="view-section" id="view-receive">
+        <div class="liquid-glass-card">
+          <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 6px;">Receive Files</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+            Enter the 6-digit numeric joining code or paste the session URL shared by the sender.
+          </p>
+
+          <div style="display: flex; gap: 10px; margin-bottom: 24px;">
+            <input type="text" class="flux-input" id="receiveCodeInput" placeholder="e.g. 849201 or https://...#join=..." style="font-size: 16px;">
+            <button class="btn btn-primary" id="joinSessionBtn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+              <span>Connect & Receive</span>
+            </button>
+          </div>
+
+          <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px;">Received Files</h3>
+          <div id="receivedFilesList">
+            <div class="empty-list-placeholder">Files received from sender will appear here with instant viewer actions.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. ACTIVE TRANSFERS VIEW -->
+      <section class="view-section" id="view-transfers">
+        <div class="dashboard-grid">
+
+          <!-- Share Session Credentials Area (when sender) -->
+          <div id="sessionShareArea" style="grid-column: 1 / -1;"></div>
+
+          <!-- Real-Time Transfer Monitoring Card -->
+          <div class="liquid-glass-card" style="grid-column: 1 / -1;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <h3 style="font-size: 18px; font-weight: 700;">Live Transfer Stream</h3>
+                <span style="font-size: 12px; color: var(--text-muted);">WebRTC Binary DataChannel (64KB Chunks with Backpressure)</span>
+              </div>
+              <span class="glass-pill" id="activeTransferStateBadge">Initializing</span>
+            </div>
+
+            <div class="transfer-progress-box">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-size: 13px; font-weight: 600;">Overall Progress</span>
+                <span style="font-size: 13px; font-weight: 700; color: var(--accent-cyan);" id="transferProgressPct">0.0%</span>
+              </div>
+              <div class="progress-track-bg">
+                <div class="progress-track-fill" id="transferProgressBar"></div>
+              </div>
+            </div>
+
+            <!-- Real-time Calculated Statistics HUD -->
+            <div class="stats-grid-hud">
+              <div class="hud-item">
+                <span class="hud-label">Current Speed</span>
+                <span class="hud-value" id="transferCurrentSpeed">0 B/s</span>
+              </div>
+              <div class="hud-item">
+                <span class="hud-label">Average Speed</span>
+                <span class="hud-value" id="transferAvgSpeed">0 B/s</span>
+              </div>
+              <div class="hud-item">
+                <span class="hud-label">Peak Speed</span>
+                <span class="hud-value" id="transferPeakSpeed">0 B/s</span>
+              </div>
+              <div class="hud-item">
+                <span class="hud-label">Transferred</span>
+                <span class="hud-value" id="transferBytesTransferred">0 B / 0 B</span>
+              </div>
+              <div class="hud-item">
+                <span class="hud-label">Elapsed Time</span>
+                <span class="hud-value" id="transferElapsedTime">00:00</span>
+              </div>
+              <div class="hud-item">
+                <span class="hud-label">Estimated Remaining</span>
+                <span class="hud-value" id="transferEta">--:--</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+              <button class="btn btn-secondary" id="transferPauseBtn">Pause Transfer</button>
+              <button class="btn btn-secondary" id="transferCancelBtn" style="color: var(--accent-rose);">Cancel Transfer</button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 5. TRANSFER HISTORY VIEW -->
+      <section class="view-section" id="view-history">
+        <div class="liquid-glass-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+            <div>
+              <h2 style="font-size: 22px; font-weight: 800;">Transfer History</h2>
+              <p style="font-size: 13px; color: var(--text-muted);">Stored strictly on local device. Zero server file logging.</p>
+            </div>
+            <button class="btn btn-sm btn-secondary" id="clearHistoryBtn">Clear History</button>
+          </div>
+          <div id="historyContainer"></div>
+        </div>
+      </section>
+
+      <!-- 6. APPEARANCE VIEW (14 LIQUID GLASS LAYOUTS) -->
+      <section class="view-section" id="view-appearance">
+        <div class="liquid-glass-card">
+          <h2 style="font-size: 22px; font-weight: 800;">Appearance & Layouts</h2>
+          <p style="font-size: 13px; color: var(--text-muted);">
+            Choose from 14 distinct Liquid Glass layouts. Seamless switching preserves active transfers and sessions.
+          </p>
+
+          <h3 class="layouts-category-header">Mobile Layouts (7 Variations)</h3>
+          <div class="layouts-selector-grid" id="mobileLayoutsGrid"></div>
+
+          <h3 class="layouts-category-header">Desktop Layouts (7 Variations)</h3>
+          <div class="layouts-selector-grid" id="desktopLayoutsGrid"></div>
+        </div>
+      </section>
+
+      <!-- 7. PERFORMANCE VIEW -->
+      <section class="view-section" id="view-performance">
+        <div class="liquid-glass-card">
+          <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 6px;">Performance Profiles</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+            Optimize rendering overhead depending on device capabilities and battery conditions.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+            <div class="liquid-glass-card">
+              <span class="layout-badge">High Throughput</span>
+              <h3 style="margin: 10px 0 4px;">Performance Mode</h3>
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+                Minimal blur, disabled background orbs, lowest CPU consumption. Ideal for gigabit LAN transfers and mobile devices.
+              </p>
+              <button class="btn btn-secondary perf-mode-btn" data-mode="performance" style="width: 100%;">Select Performance</button>
+            </div>
+
+            <div class="liquid-glass-card">
+              <span class="layout-badge">Default</span>
+              <h3 style="margin: 10px 0 4px;">Balanced Mode</h3>
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+                Standard Liquid Glass materials with smooth GPU-accelerated transitions and optimal responsiveness.
+              </p>
+              <button class="btn btn-secondary perf-mode-btn" data-mode="balanced" style="width: 100%;">Select Balanced</button>
+            </div>
+
+            <div class="liquid-glass-card">
+              <span class="layout-badge">Visual Fidelity</span>
+              <h3 style="margin: 10px 0 4px;">Quality Mode</h3>
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">
+                Full specular reflections, enriched glass refraction, dynamic aurora mesh floating orbs.
+              </p>
+              <button class="btn btn-secondary perf-mode-btn" data-mode="quality" style="width: 100%;">Select Quality</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. SECURITY VIEW -->
+      <section class="view-section" id="view-security">
+        <div class="liquid-glass-card">
+          <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 6px;">Security & Encryption</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+            Cryptographic standards protecting FLUXDROPE transfers.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="liquid-glass-card">
+              <h3 style="font-size: 16px; font-weight: 700;">Seven-Attempt Lockout Policy</h3>
+              <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">
+                Enforced atomically on the Cloudflare Durable Object session. Allows up to 6 unsuccessful password attempts. On the 7th unsuccessful attempt, verification is locked for 10 minutes.
+              </p>
+            </div>
+
+            <div class="liquid-glass-card">
+              <h3 style="font-size: 16px; font-weight: 700;">End-to-End Encryption (E2EE)</h3>
+              <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">
+                Files encrypted with AES-256-GCM. Keys derived from password using PBKDF2 (100,000 rounds) with unique 96-bit initialization vector per chunk.
+              </p>
+              <div style="margin-top: 12px;">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+                  <input type="checkbox" id="e2eeSettingToggle" checked>
+                  <span>Enable client-side AES-256-GCM chunk encryption</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="liquid-glass-card">
+              <h3 style="font-size: 16px; font-weight: 700;">Mandatory Branding Policy</h3>
+              <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">
+                Every downloaded file preserves original bytes while adopting:
+                <code>OriginalFileName_FLUXDROPE_Created_By_Shiv_Yogi.Extension</code>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 9. SESSION EXPIRY VIEW -->
+      <section class="view-section" id="view-expiry">
+        <div class="liquid-glass-card">
+          <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 6px;">Session Expiry</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
+            Configurable time-to-live for transfer sessions. Expired sessions reject new joiners and clean up signaling memory automatically.
+          </p>
+          <div class="liquid-glass-card">
+            <p style="font-size: 14px;">
+              Default transfer session lifespan: <strong>1 Hour</strong>.<br>
+              Transfers can be configured with lifespans from 15 minutes up to 24 hours at creation time.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10. SETTINGS VIEW -->
+      <section class="view-section" id="view-settings">
+        <div class="liquid-glass-card">
+          <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 6px;">Settings</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Manage local application preferences.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div class="liquid-glass-card">
+              <h3 style="font-size: 15px; font-weight: 700; margin-bottom: 6px;">Local Cache & Credentials</h3>
+              <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Clear saved layout preferences, transfer history, and temporary data.</p>
+              <button class="btn btn-secondary" id="clearLocalCacheBtn">Clear Local Storage</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11. HELP AND TROUBLESHOOTING VIEW -->
+      <section class="view-section" id="view-help">
+        <div class="liquid-glass-card">
+          <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 6px;">Help and Troubleshooting</h2>
+          <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">Frequently encountered WebRTC connection questions.</p>
+
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div class="liquid-glass-card">
+              <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 4px;">Transfer hangs at "Negotiating WebRTC"?</h4>
+              <p style="font-size: 13px; color: var(--text-muted);">
+                WebRTC requires symmetric or STUN-traversable networks. Ensure neither device is using a restrictive corporate VPN or firewall blocking UDP ports.
+              </p>
+            </div>
+
+            <div class="liquid-glass-card">
+              <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 4px;">Where do downloaded files save?</h4>
+              <p style="font-size: 13px; color: var(--text-muted);">
+                Files are downloaded directly into your browser's default Downloads folder with the mandatory Shiv Yogi branding name format.
+              </p>
+            </div>
+
+            <div class="liquid-glass-card">
+              <h4 style="font-size: 15px; font-weight: 700; margin-bottom: 4px;">Can I preview files before downloading?</h4>
+              <p style="font-size: 13px; color: var(--text-muted);">
+                Yes! FLUXDROPE includes universal viewers for Video, Audio (with dynamic waveform), Images (with zoom & watermark copy), PDFs, and Documents (CSV, JSON, Markdown).
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12. ABOUT FLUXDROPE VIEW -->
+      <section class="view-section" id="view-about">
+        <div class="liquid-glass-card" style="text-align: center; padding: 40px 20px;">
+          <div style="margin-bottom: 16px;">
+            <svg width="64" height="64" viewBox="0 0 40 40" fill="none">
+              <path d="M20 3L35 18L20 37L5 18L20 3Z" stroke="#38bdf8" stroke-width="2.2" fill="rgba(56,189,248,0.1)"/>
+              <path d="M12 18C14 13 18 13 20 18C22 23 26 23 28 18" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+              <circle cx="20" cy="18" r="3" fill="#38bdf8"/>
+            </svg>
+          </div>
+          <h2 style="font-size: 28px; font-weight: 800;">FLUXDROPE</h2>
+          <p style="font-size: 16px; font-weight: 600; color: var(--accent-cyan); margin: 6px 0 16px;">Created By Shiv Yogi</p>
+          <p style="max-width: 540px; margin: 0 auto 24px; color: var(--text-muted); font-size: 14px; line-height: 1.6;">
+            A complete, production-oriented peer-to-peer file-sharing website built with WebRTC DataChannel streaming, 64KB binary chunking with flow control backpressure, Cloudflare Workers & Durable Objects signaling, 7-attempt lockout security, 14 Liquid Glass responsive layouts, and universal media viewers.
+          </p>
+
+          <button class="btn btn-secondary" id="replayIntroBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+            <span>Replay Cinematic Introduction</span>
+          </button>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Universal Media Viewer Modal Placeholder -->
+  <div id="fluxMediaModal" class="flux-modal-backdrop" style="display: none;"></div>
+
+  <!-- Password Prompt Modal Placeholder -->
+  <div id="passwordPromptModal" class="flux-modal-backdrop" style="display: none;"></div>
+
+  <!-- Application Bootstrap Script -->
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

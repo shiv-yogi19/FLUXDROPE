@@ -1,0 +1,40 @@
+# FLUXDROPE Signaling Server - Cloudflare Workers Configuration
+# Created By Shiv Yogi
+
+name = "fluxdrope-signaling"
+main = "src/worker.js"
+compatibility_date = "2024-01-01"
+workers_dev = true
+
+# Environment variables
+[vars]
+SESSION_TTL_SECONDS = "1800"
+MAX_MESSAGES_PER_MINUTE = "100"
+ALLOWED_ORIGINS = "*"
+
+# Durable Object bindings for WebSocket stateful sessions
+[[durable_objects.bindings]]
+name = "TRANSFER_SESSION"
+class_name = "TransferSession"
+
+# Durable Object class migrations
+[[migrations]]
+tag = "v1"
+new_classes = ["TransferSession"]
+
+# KV Namespace for short-lived joining codes (FLX-XXXX-XXXX -> sessionId)
+[[kv_namespaces]]
+binding = "JOINING_CODES"
+id = "YOUR_KV_NAMESPACE_ID_HERE"
+preview_id = "YOUR_PREVIEW_KV_NAMESPACE_ID_HERE"
+
+# Production environment overrides (optional)
+[env.production]
+name = "fluxdrope-signaling-prod"
+workers_dev = false
+# route = "signaling.fluxdrope.io/*"
+
+# Development environment overrides (optional)
+[env.development]
+name = "fluxdrope-signaling-dev"
+workers_dev = true

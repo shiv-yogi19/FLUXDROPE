@@ -1,0 +1,113 @@
+/**
+ * FLUXDROPE - Peer-to-Peer End-to-End Encrypted File Sharing
+ * crystal.css - Theme 3: Crystal
+ * Aesthetics: Prismatic crystal facets, diamond refraction, ice cyan & violet,
+ * ultra-high transparency, chromatic caustics, and pristine reflections.
+ */
+
+[data-theme="crystal"],
+:root[data-theme="crystal"] {
+  /* Theme Identity */
+  --theme-id: "crystal";
+  --theme-name: "Crystal";
+
+  /* Color Palette */
+  --bg-surface: #0a1120;
+  --bg-gradient: radial-gradient(135% 125% at 50% 0%, #182b46 0%, #0e182a 50%, #070c17 100%);
+  --bg-mesh: radial-gradient(at 15% 15%, rgba(147, 197, 253, 0.24) 0px, transparent 50%),
+             radial-gradient(at 85% 20%, rgba(192, 132, 252, 0.2) 0px, transparent 52%),
+             radial-gradient(at 50% 85%, rgba(165, 243, 252, 0.22) 0px, transparent 58%);
+
+  /* Typography Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  --text-muted: #7e8c9f;
+  --text-inverted: #0f172a;
+
+  /* Accent Vibrancies (Prismatic Ice & Diamond Aurora) */
+  --accent-primary: #67e8f9;       /* Diamond Ice Cyan */
+  --accent-secondary: #e0e7ff;     /* Crystalline Silver */
+  --accent-tertiary: #c084fc;      /* Refracted Violet */
+  --accent-gradient: linear-gradient(135deg, #a5f3fc 0%, #93c5fd 40%, #e0e7ff 70%, #fbcfe8 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #cffafe 0%, #bfdbfe 40%, #eef2ff 70%, #fce7f3 100%);
+  --accent-glow: 0 0 35px rgba(103, 232, 249, 0.55);
+  --accent-glow-secondary: 0 0 35px rgba(192, 132, 252, 0.45);
+
+  /* Status Colors */
+  --status-success: #34d399;
+  --status-warning: #fbbf24;
+  --status-error: #f87171;
+  --status-info: #38bdf8;
+
+  /* Glassmorphism Surface Tokens (Ultra-translucent Crystal) */
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.04);
+  --glass-bg-elevated: rgba(255, 255, 255, 0.15);
+  --glass-bg-interactive: rgba(255, 255, 255, 0.14);
+
+  /* Glass Borders (Prismatic Edge) */
+  --glass-border: rgba(255, 255, 255, 0.26);
+  --glass-border-bright: rgba(255, 255, 255, 0.65);
+  --glass-border-accent: rgba(103, 232, 249, 0.6);
+
+  /* Reflections & Depth */
+  --glass-reflection: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.38) 0%,
+    rgba(255, 255, 255, 0.06) 45%,
+    rgba(255, 255, 255, 0.16) 100%
+  );
+  --glass-inner-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.48),
+                       inset 0 -2px 3px rgba(0, 0, 0, 0.25);
+  --glass-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.5),
+                  0 0 25px rgba(103, 232, 249, 0.2);
+
+  /* Blur Intensities */
+  --blur-sm: blur(16px);
+  --blur-md: blur(28px);
+  --blur-lg: blur(42px);
+}
+
+/* Crystal Specific Component Overrides */
+[data-theme="crystal"] .glass-card {
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  box-shadow: var(--glass-inner-shadow), var(--glass-shadow);
+  backdrop-filter: blur(24px) saturate(140%);
+}
+
+[data-theme="crystal"] .glass-btn-primary {
+  background: var(--accent-gradient);
+  border-color: rgba(255, 255, 255, 0.7);
+  color: #0f172a;
+  font-weight: var(--fw-bold);
+  box-shadow: 0 10px 25px -4px rgba(103, 232, 249, 0.5),
+              var(--glass-inner-shadow);
+}
+
+[data-theme="crystal"] .glass-btn-primary:hover {
+  background: var(--accent-gradient-hover);
+  box-shadow: 0 14px 32px -4px rgba(103, 232, 249, 0.75),
+              var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+/* Crystal 3D Glass Sphere */
+[data-theme="crystal"] .glass-sphere {
+  background: radial-gradient(
+    circle at 30% 25%,
+    rgba(255, 255, 255, 0.65) 0%,
+    rgba(165, 243, 252, 0.4) 30%,
+    rgba(192, 132, 252, 0.25) 60%,
+    rgba(15, 23, 42, 0.75) 100%
+  );
+  box-shadow: inset -10px -15px 25px rgba(0, 0, 0, 0.6),
+              inset 10px 12px 25px rgba(255, 255, 255, 0.75),
+              0 25px 60px rgba(0, 0, 0, 0.5),
+              0 0 45px rgba(103, 232, 249, 0.5);
+}
+
+[data-theme="crystal"] .glass-sphere-core {
+  background: linear-gradient(135deg, #a5f3fc 0%, #e0e7ff 50%, #fbcfe8 100%);
+  opacity: 0.85;
+}

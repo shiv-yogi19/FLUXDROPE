@@ -1,0 +1,115 @@
+/**
+ * FLUXDROPE - Peer-to-Peer End-to-End Encrypted File Sharing
+ * liquid-motion.css - Theme 8: Liquid Motion
+ * Aesthetics: Fluid organic curvature, vibrant magenta & electric coral waves,
+ * glossy wet-glass sheen, dynamic ripple reflections, and morphing surfaces.
+ */
+
+[data-theme="liquid-motion"],
+:root[data-theme="liquid-motion"] {
+  /* Theme Identity */
+  --theme-id: "liquid-motion";
+  --theme-name: "Liquid Motion";
+
+  /* Color Palette */
+  --bg-surface: #0a0614;
+  --bg-gradient: radial-gradient(125% 125% at 50% 0%, #260e36 0%, #130721 50%, #06020c 100%);
+  --bg-mesh: radial-gradient(at 15% 15%, rgba(255, 51, 102, 0.24) 0px, transparent 48%),
+             radial-gradient(at 85% 20%, rgba(254, 107, 179, 0.22) 0px, transparent 50%),
+             radial-gradient(at 50% 85%, rgba(6, 182, 212, 0.2) 0px, transparent 55%);
+
+  /* Typography Colors */
+  --text-primary: #fff1f2;
+  --text-secondary: #fbcfe8;
+  --text-muted: #885c7a;
+  --text-inverted: #120412;
+
+  /* Accent Vibrancies (Vivid Magenta, Royal Purple, Electric Cyan) */
+  --accent-primary: #ff3366;       /* Vivid Fluid Magenta */
+  --accent-secondary: #9333ea;     /* Deep Liquid Violet */
+  --accent-tertiary: #06b6d4;      /* Ripple Cyan */
+  --accent-gradient: linear-gradient(135deg, #ff3366 0%, #ec4899 35%, #9333ea 70%, #06b6d4 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #fb7185 0%, #f472b6 35%, #a855f7 70%, #22d3ee 100%);
+  --accent-glow: 0 0 35px rgba(255, 51, 102, 0.52);
+  --accent-glow-secondary: 0 0 35px rgba(147, 51, 234, 0.45);
+
+  /* Status Colors */
+  --status-success: #10b981;
+  --status-warning: #f59e0b;
+  --status-error: #ff3366;
+  --status-info: #06b6d4;
+
+  /* Glassmorphism Surface Tokens (Glossy Wet Glass) */
+  --glass-bg: rgba(28, 12, 38, 0.65);
+  --glass-bg-subtle: rgba(28, 12, 38, 0.4);
+  --glass-bg-elevated: rgba(52, 22, 72, 0.82);
+  --glass-bg-interactive: rgba(255, 51, 102, 0.08);
+
+  /* Glass Borders */
+  --glass-border: rgba(255, 105, 180, 0.22);
+  --glass-border-bright: rgba(255, 105, 180, 0.55);
+  --glass-border-accent: rgba(255, 51, 102, 0.65);
+
+  /* Reflections & Depth (Wet Gloss Reflection) */
+  --glass-reflection: linear-gradient(
+    180deg,
+    rgba(255, 192, 203, 0.28) 0%,
+    rgba(255, 192, 203, 0.04) 45%,
+    transparent 100%
+  );
+  --glass-inner-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.35),
+                       inset 0 -1px 3px rgba(0, 0, 0, 0.55);
+  --glass-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.78),
+                  0 0 30px rgba(255, 51, 102, 0.22);
+
+  /* Blur Intensities */
+  --blur-sm: blur(14px);
+  --blur-md: blur(26px);
+  --blur-lg: blur(38px);
+}
+
+/* Liquid Motion Specific Component Overrides */
+[data-theme="liquid-motion"] .glass-card {
+  border-radius: 28px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  box-shadow: var(--glass-inner-shadow), var(--glass-shadow);
+}
+
+[data-theme="liquid-motion"] .glass-btn {
+  border-radius: 20px;
+}
+
+[data-theme="liquid-motion"] .glass-btn-primary {
+  background: var(--accent-gradient);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+  box-shadow: 0 8px 25px -4px rgba(255, 51, 102, 0.55),
+              var(--glass-inner-shadow);
+}
+
+[data-theme="liquid-motion"] .glass-btn-primary:hover {
+  background: var(--accent-gradient-hover);
+  box-shadow: 0 14px 32px -4px rgba(255, 51, 102, 0.75),
+              var(--accent-glow);
+}
+
+/* Wet Glossy 3D Liquid Sphere */
+[data-theme="liquid-motion"] .glass-sphere {
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 51, 102, 0.38) 28%,
+    rgba(147, 51, 234, 0.28) 58%,
+    rgba(12, 4, 18, 0.95) 100%
+  );
+  box-shadow: inset -10px -15px 30px rgba(0, 0, 0, 0.8),
+              inset 8px 10px 20px rgba(255, 255, 255, 0.5),
+              0 25px 60px rgba(0, 0, 0, 0.7),
+              0 0 45px rgba(255, 51, 102, 0.45);
+}
+
+[data-theme="liquid-motion"] .glass-sphere-core {
+  background: radial-gradient(circle, #ff3366 0%, #ec4899 50%, #9333ea 100%);
+  opacity: 0.85;
+}

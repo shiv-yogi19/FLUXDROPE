@@ -1,0 +1,16 @@
+{
+  "name": "FLUXDROPE",
+  "short_name": "FLUXDROPE",
+  "description": "Liquid Glass High-Performance Peer-to-Peer File Transfer. Created By Shiv Yogi.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#07090e",
+  "theme_color": "#07090e",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

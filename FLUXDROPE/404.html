@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>404 — Page Not Found | FLUXDROPE</title>
+  <meta name="description" content="404 Page Not Found on FLUXDROPE. Created By Shiv Yogi.">
+  <meta name="theme-color" content="#030712">
+  <meta name="color-scheme" content="dark">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       FLUXDROPE 404 STANDALONE LIQUID GLASS STYLES
+       ========================================================================== */
+    :root {
+      --bg-deep: #030712;
+      --bg-card: rgba(15, 23, 42, 0.65);
+      --border-glass: rgba(255, 255, 255, 0.12);
+      --border-glass-hover: rgba(56, 189, 248, 0.4);
+      --primary-cyan: #38bdf8;
+      --secondary-indigo: #818cf8;
+      --accent-violet: #a855f7;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --glow-shadow: 0 0 50px rgba(56, 189, 248, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow-x: hidden;
+      padding: 1.5rem;
+    }
+
+    /* Ambient background glows */
+    .ambient-glow {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+    .glow-cyan {
+      top: 15%;
+      left: 18%;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, #0284c7 0%, transparent 70%);
+      animation: floatSlow 12s ease-in-out infinite alternate;
+    }
+    .glow-violet {
+      bottom: 15%;
+      right: 18%;
+      width: 460px;
+      height: 460px;
+      background: radial-gradient(circle, #7e22ce 0%, transparent 70%);
+      animation: floatSlow 15s ease-in-out infinite alternate-reverse;
+    }
+
+    .mesh-grid {
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(circle at center, black 40%, transparent 85%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* 404 Glass Container */
+    .error-card {
+      position: relative;
+      z-index: 2;
+      max-width: 620px;
+      width: 100%;
+      background: var(--bg-card);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid var(--border-glass);
+      border-radius: 28px;
+      padding: 3.5rem 2.5rem;
+      text-align: center;
+      box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.5),
+        inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      animation: fadeInScale 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* Brand Header */
+    .brand-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      padding: 0.5rem 1.25rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+    }
+    .brand-logo-svg {
+      width: 28px;
+      height: 28px;
+    }
+    .brand-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--text-main);
+    }
+    .creator-tag {
+      font-size: 0.75rem;
+      color: var(--primary-cyan);
+      border-left: 1px solid rgba(255, 255, 255, 0.15);
+      padding-left: 0.75rem;
+    }
+
+    /* Animated Glass Sphere */
+    .sphere-container {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 2rem;
+    }
+    .glass-sphere {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 0 25px rgba(56, 189, 248, 0.35));
+    }
+
+    .spin-slow {
+      transform-origin: 90px 90px;
+      animation: spin 16s linear infinite;
+    }
+    .spin-reverse-slow {
+      transform-origin: 90px 90px;
+      animation: spinReverse 20s linear infinite;
+    }
+    .sphere-core-pulse {
+      animation: spherePulse 4s ease-in-out infinite alternate;
+    }
+
+    /* Error Code & Text */
+    .error-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 4.5rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.75rem;
+      filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.4));
+    }
+
+    .error-headline {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .error-description {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Actions */
+    .btn-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .glass-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      padding: 0.95rem 1.85rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid transparent;
+      font-family: inherit;
+    }
+
+    .primary-btn {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(99, 102, 241, 0.25) 100%);
+      border-color: rgba(56, 189, 248, 0.45);
+      color: #ffffff;
+      box-shadow: 0 4px 20px rgba(56, 189, 248, 0.25);
+    }
+    .primary-btn:hover {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.4) 0%, rgba(99, 102, 241, 0.4) 100%);
+      border-color: #38bdf8;
+      box-shadow: 0 6px 30px rgba(56, 189, 248, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .secondary-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: var(--text-muted);
+    }
+    .secondary-btn:hover {
+      background: rgba(255, 255, 255, 0.09);
+      color: var(--text-main);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .btn-icon {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Footer stamp */
+    .footer-note {
+      margin-top: 2.5rem;
+      font-size: 0.8rem;
+      color: rgba(148, 163, 184, 0.6);
+      letter-spacing: 0.04em;
+    }
+
+    /* Keyframes */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes spinReverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+    @keyframes spherePulse {
+      0% { transform: scale(0.97); opacity: 0.85; }
+      100% { transform: scale(1.03); opacity: 1; }
+    }
+    @keyframes floatSlow {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(40px, -30px); }
+    }
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.96) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      .error-card {
+        padding: 2.5rem 1.5rem;
+      }
+      .error-code {
+        font-size: 3.5rem;
+      }
+      .error-headline {
+        font-size: 1.4rem;
+      }
+      .sphere-container {
+        width: 140px;
+        height: 140px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Light Fields -->
+  <div class="ambient-glow glow-cyan" aria-hidden="true"></div>
+  <div class="ambient-glow glow-violet" aria-hidden="true"></div>
+  <div class="mesh-grid" aria-hidden="true"></div>
+
+  <!-- Central Glass Card -->
+  <main class="error-card" role="main">
+    
+    <!-- Top Branding Pill -->
+    <div class="brand-header">
+      <svg class="brand-logo-svg" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon points="70,12 120,41 120,99 70,128 20,99 20,41" stroke="#38bdf8" stroke-width="6" fill="rgba(30, 41, 59, 0.7)" />
+        <path d="M48 46 H66 M48 46 V94 M48 68 H62" stroke="#ffffff" stroke-width="6" stroke-linecap="round" />
+        <path d="M74 46 H86 C96 46 102 54 102 70 C102 86 96 94 86 94 H74 V46 Z" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" />
+      </svg>
+      <span class="brand-title">FLUXDROPE</span>
+      <span class="creator-tag">Created By Shiv Yogi</span>
+    </div>
+
+    <!-- 3D Liquid Animated Sphere -->
+    <div class="sphere-container" aria-hidden="true">
+      <svg class="glass-sphere" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="sphere404Grad" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.9" />
+            <stop offset="40%" stop-color="#6366f1" stop-opacity="0.6" />
+            <stop offset="75%" stop-color="#a855f7" stop-opacity="0.3" />
+            <stop offset="100%" stop-color="#090d16" stop-opacity="0.95" />
+          </radialGradient>
+          <linearGradient id="orbitRingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8" />
+            <stop offset="50%" stop-color="#818cf8" />
+            <stop offset="100%" stop-color="#c084fc" />
+          </linearGradient>
+        </defs>
+
+        <!-- Orbital Ring 1 -->
+        <ellipse cx="90" cy="90" rx="75" ry="26" stroke="url(#orbitRingGrad)" stroke-width="1.5" stroke-dasharray="6 4" opacity="0.6" transform="rotate(-30 90 90)" class="spin-slow" />
+        <!-- Orbital Ring 2 -->
+        <ellipse cx="90" cy="90" rx="82" ry="30" stroke="url(#orbitRingGrad)" stroke-width="1" stroke-dasharray="3 6" opacity="0.4" transform="rotate(40 90 90)" class="spin-reverse-slow" />
+        
+        <!-- Sphere Orb -->
+        <circle cx="90" cy="90" r="56" fill="url(#sphere404Grad)" class="sphere-core-pulse" />
+        
+        <!-- Liquid Reflection Shimmers -->
+        <ellipse cx="74" cy="70" rx="24" ry="12" fill="#ffffff" opacity="0.4" transform="rotate(-28 74 70)" />
+        <circle cx="108" cy="110" r="6" fill="#38bdf8" opacity="0.5" />
+        <circle cx="70" cy="108" r="4" fill="#c084fc" opacity="0.6" />
+      </svg>
+    </div>
+
+    <!-- Error Title & Descriptions -->
+    <div class="error-code">404</div>
+    <h1 class="error-headline">Page Not Found</h1>
+    <p class="error-description">
+      The peer tunnel or session route you navigated to does not exist or has expired. 
+      FLUXDROPE keeps zero data on servers—when a transfer finishes, all memory buffers dissolve.
+    </p>
+
+    <!-- Return Actions -->
+    <div class="btn-row">
+      <a href="index.html" class="glass-btn primary-btn" aria-label="Return to FLUXDROPE home">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Return to FLUXDROPE</span>
+      </a>
+      <a href="index.html#receive" class="glass-btn secondary-btn" aria-label="Join a transfer session">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        </svg>
+        <span>Join Session</span>
+      </a>
+    </div>
+
+    <!-- Creator stamp -->
+    <div class="footer-note">
+      FLUXDROPE · End-to-End Encrypted WebRTC · Created By Shiv Yogi
+    </div>
+
+  </main>
+
+</body>
+</html>

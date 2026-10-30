@@ -1,0 +1,475 @@
+/**
+ * FLUXDROPE - Peer-to-Peer End-to-End Encrypted File Sharing
+ * responsive.css - Mobile-First Responsive Framework & 8 Distinct Theme Layout Systems
+ * Breakpoints: 320px, 480px, 640px, 768px, 1024px, 1280px, 1440px
+ */
+
+/* ==========================================================================
+   1. MOBILE-FIRST BASE & TOUCH ACCESSIBILITY
+   ========================================================================== */
+
+:root {
+  --sidebar-width: 280px;
+  --header-height: 64px;
+  --bottom-nav-height: 68px;
+}
+
+/* Touch Targets & Safe Areas */
+button,
+a,
+input,
+select,
+.interactive-target {
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+}
+
+.safe-top-padding {
+  padding-top: var(--safe-top);
+}
+
+.safe-bottom-padding {
+  padding-bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + var(--space-md));
+}
+
+/* Workspace Frame */
+.flux-workspace {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  position: relative;
+}
+
+.flux-main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-md);
+  padding-bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + var(--space-md));
+  width: 100%;
+}
+
+.flux-sidebar {
+  display: none; /* Hidden on mobile by default */
+}
+
+.flux-bottom-nav {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--bottom-nav-height) + var(--safe-bottom));
+  padding-bottom: var(--safe-bottom);
+  z-index: var(--z-bottom-nav);
+  background: var(--glass-bg-elevated);
+  border-top: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: var(--blur-lg);
+  backdrop-filter: var(--blur-lg);
+  align-items: center;
+  justify-content: space-around;
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  flex: 1;
+  height: 100%;
+  color: var(--text-muted);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-medium);
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.bottom-nav-item.active,
+.bottom-nav-item:hover {
+  color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
+.bottom-nav-item svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ==========================================================================
+   2. RESPONSIVE BREAKPOINT BEHAVIORS
+   ========================================================================== */
+
+/* 2.1 Ultra-compact / Small Mobile (<= 320px) */
+@media (max-width: 320px) {
+  :root {
+    --fs-base: 0.875rem;
+  }
+  .glass-card {
+    padding: var(--space-sm);
+    border-radius: var(--radius-lg);
+  }
+  .hide-xs {
+    display: none !important;
+  }
+}
+
+/* 2.2 Compact Mobile (>= 480px) */
+@media (min-width: 480px) {
+  .flux-main {
+    padding: var(--space-lg);
+    padding-bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + var(--space-lg));
+  }
+  .grid-cols-sm-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 2.3 Phablets & Small Tablets (>= 640px) */
+@media (min-width: 640px) {
+  .flux-main {
+    padding: var(--space-xl);
+    padding-bottom: calc(var(--bottom-nav-height) + var(--safe-bottom) + var(--space-xl));
+  }
+  .grid-cols-md-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .grid-cols-md-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* 2.4 Tablets & Medium Screens (>= 768px) */
+@media (min-width: 768px) {
+  :root {
+    --header-height: 72px;
+  }
+  .flux-header {
+    height: var(--header-height);
+  }
+  .grid-cols-lg-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .grid-cols-lg-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* 2.5 Desktop Layouts (>= 1024px) */
+@media (min-width: 1024px) {
+  .flux-workspace {
+    flex-direction: row;
+  }
+
+  .flux-sidebar {
+    display: flex;
+    flex-direction: column;
+    width: var(--sidebar-width);
+    height: 100vh;
+    height: 100dvh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: var(--z-sidebar);
+    border-right: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    -webkit-backdrop-filter: var(--blur-xl);
+    backdrop-filter: var(--blur-xl);
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .flux-main {
+    flex: 1;
+    max-width: calc(100vw - var(--sidebar-width));
+    padding: var(--space-2xl) var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
+
+  /* Bottom nav is redundant on desktop */
+  .flux-bottom-nav {
+    display: none;
+  }
+
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+/* 2.6 Large Desktop (>= 1280px) */
+@media (min-width: 1280px) {
+  :root {
+    --sidebar-width: 320px;
+  }
+  .container-workspace {
+    max-width: 1240px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* 2.7 Ultra-Wide Displays (>= 1440px) */
+@media (min-width: 1440px) {
+  :root {
+    --sidebar-width: 340px;
+  }
+  .container-workspace {
+    max-width: 1380px;
+  }
+}
+
+/* ==========================================================================
+   3. THE 8 LAYOUT SYSTEMS (CSS CLASSES)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   3.1 Aurora Glass Layout (.layout-aurora-glass)
+   Ethereal centered floating canvas with aurora halo & floating pill bar
+   -------------------------------------------------------------------------- */
+.layout-aurora-glass {
+  position: relative;
+  background-attachment: fixed;
+}
+
+.layout-aurora-glass .flux-main {
+  align-items: center;
+  justify-content: center;
+}
+
+.layout-aurora-glass .workspace-card {
+  max-width: 860px;
+  width: 100%;
+  margin: auto;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border-bright);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.7),
+              0 0 50px rgba(56, 189, 248, 0.25);
+  border-radius: var(--radius-3xl);
+}
+
+@media (min-width: 1024px) {
+  .layout-aurora-glass .flux-sidebar {
+    margin: var(--space-md);
+    margin-right: 0;
+    height: calc(100vh - (var(--space-md) * 2));
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--glass-border-bright);
+    box-shadow: var(--glass-shadow-deep);
+  }
+  .layout-aurora-glass .flux-main {
+    padding: var(--space-xl);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3.2 Obsidian Layout (.layout-obsidian)
+   Monolithic dark grid structure, sharp contrast, modular telemetry tiles
+   -------------------------------------------------------------------------- */
+.layout-obsidian {
+  background-color: #030304;
+}
+
+.layout-obsidian .glass-card,
+.layout-obsidian .glass-panel,
+.layout-obsidian .glass-btn {
+  border-radius: var(--radius-sm);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(12, 12, 15, 0.88);
+}
+
+.layout-obsidian .flux-main {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+
+@media (min-width: 1024px) {
+  .layout-obsidian .flux-main {
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-xl);
+  }
+  .layout-obsidian .flux-sidebar {
+    background: #08080a;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3.3 Crystal Layout (.layout-crystal)
+   Prismatic faceted geometry, diamond-grid layout, caustics refraction
+   -------------------------------------------------------------------------- */
+.layout-crystal .glass-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
+              inset 0 0 25px rgba(255, 255, 255, 0.12);
+  clip-path: polygon(0 8px, 8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+.layout-crystal .flux-bottom-nav {
+  margin: var(--space-xs) var(--space-md);
+  margin-bottom: calc(var(--space-xs) + var(--safe-bottom));
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+@media (min-width: 1024px) {
+  .layout-crystal .flux-main {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-xl);
+  }
+  .layout-crystal .workspace-transfer {
+    grid-column: span 8;
+  }
+  .layout-crystal .workspace-telemetry {
+    grid-column: span 4;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3.4 Quantum Layout (.layout-quantum)
+   Cyberpunk HUD dashboard layout, split-screen monitoring, terminal brackets
+   -------------------------------------------------------------------------- */
+.layout-quantum {
+  font-family: var(--font-sans);
+}
+
+.layout-quantum .glass-card {
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  border-radius: 4px;
+  position: relative;
+  background: rgba(4, 12, 24, 0.8);
+}
+
+/* HUD Corner Reticles */
+.layout-quantum .glass-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-top: 2px solid var(--accent-primary);
+  border-right: 2px solid var(--accent-primary);
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .layout-quantum .flux-main {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: var(--space-xl);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3.5 Minimal Pro Layout (.layout-minimal-pro)
+   Swiss industrial precision, clean single column focus, stark typography
+   -------------------------------------------------------------------------- */
+.layout-minimal-pro .flux-main {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.layout-minimal-pro .glass-card {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(22, 22, 26, 0.7);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+@media (min-width: 1024px) {
+  .layout-minimal-pro .flux-sidebar {
+    width: 240px;
+    background: transparent;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3.6 Deep Space Layout (.layout-deep-space)
+   Cosmic void canvas, planetarium focal center, orbital telemetry widgets
+   -------------------------------------------------------------------------- */
+.layout-deep-space .flux-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.layout-deep-space .workspace-card {
+  width: 100%;
+  max-width: 900px;
+  background: rgba(10, 8, 28, 0.75);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  border-radius: var(--radius-3xl);
+  box-shadow: 0 25px 70px -10px rgba(0, 0, 0, 0.8),
+              0 0 40px rgba(99, 102, 241, 0.2);
+}
+
+@media (min-width: 1024px) {
+  .layout-deep-space .flux-sidebar {
+    background: rgba(6, 4, 18, 0.85);
+    border-right: 1px solid rgba(139, 92, 246, 0.15);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3.7 Holographic Layout (.layout-holographic)
+   Volumetric projection layers, floating 3D HUD panels, scanline ribbon
+   -------------------------------------------------------------------------- */
+.layout-holographic {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(34, 211, 238, 0.015) 0px,
+    rgba(34, 211, 238, 0.015) 1px,
+    transparent 1px,
+    transparent 3px
+  ), var(--bg-gradient);
+}
+
+.layout-holographic .glass-card {
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  border-radius: var(--radius-xl);
+  background: rgba(6, 24, 44, 0.7);
+  box-shadow: 0 0 25px rgba(34, 211, 238, 0.2),
+              inset 0 1px 2px rgba(34, 211, 238, 0.4);
+}
+
+@media (min-width: 1024px) {
+  .layout-holographic .flux-main {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: var(--space-2xl);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   3.8 Liquid Motion Layout (.layout-liquid-motion)
+   Fluid organic curves, dynamic morphing glass surfaces, wavy containers
+   -------------------------------------------------------------------------- */
+.layout-liquid-motion .glass-card {
+  border-radius: 28px;
+  background: rgba(28, 12, 38, 0.7);
+  border: 1px solid rgba(255, 105, 180, 0.25);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65),
+              0 0 30px rgba(255, 51, 102, 0.25);
+}
+
+.layout-liquid-motion .flux-bottom-nav {
+  margin: var(--space-xs) var(--space-md);
+  margin-bottom: calc(var(--space-xs) + var(--safe-bottom));
+  border-radius: 24px;
+}
+
+@media (min-width: 1024px) {
+  .layout-liquid-motion .flux-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xl);
+  }
+}

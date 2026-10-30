@@ -1,0 +1,108 @@
+/**
+ * FLUXDROPE - Peer-to-Peer End-to-End Encrypted File Sharing
+ * minimal-pro.css - Theme 5: Minimal Pro
+ * Aesthetics: Swiss industrial precision, monochrome titanium & slate,
+ * distraction-free clarity, frosted milk glass, and stark typographic poise.
+ */
+
+[data-theme="minimal-pro"],
+:root[data-theme="minimal-pro"] {
+  /* Theme Identity */
+  --theme-id: "minimal-pro";
+  --theme-name: "Minimal Pro";
+
+  /* Color Palette (Monochromatic Precision) */
+  --bg-surface: #0a0a0c;
+  --bg-gradient: radial-gradient(100% 100% at 50% 0%, #17171b 0%, #0c0c0e 60%, #070708 100%);
+  --bg-mesh: none;
+
+  /* Typography Colors */
+  --text-primary: #fbfbfb;
+  --text-secondary: #a3a3a8;
+  --text-muted: #5e5e66;
+  --text-inverted: #0e0e11;
+
+  /* Accent Vibrancies (Pure White, Aluminum, Platinum) */
+  --accent-primary: #ffffff;
+  --accent-secondary: #d4d4d8;
+  --accent-tertiary: #a1a1aa;
+  --accent-gradient: linear-gradient(135deg, #ffffff 0%, #e4e4e7 60%, #a1a1aa 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #ffffff 0%, #f4f4f5 50%, #d4d4d8 100%);
+  --accent-glow: 0 0 20px rgba(255, 255, 255, 0.25);
+  --accent-glow-secondary: 0 0 20px rgba(212, 212, 216, 0.2);
+
+  /* Status Colors */
+  --status-success: #22c55e;
+  --status-warning: #eab308;
+  --status-error: #ef4444;
+  --status-info: #0ea5e9;
+
+  /* Glassmorphism Surface Tokens (Frosted Milk Glass) */
+  --glass-bg: rgba(26, 26, 30, 0.65);
+  --glass-bg-subtle: rgba(26, 26, 30, 0.35);
+  --glass-bg-elevated: rgba(36, 36, 42, 0.85);
+  --glass-bg-interactive: rgba(255, 255, 255, 0.05);
+
+  /* Glass Borders */
+  --glass-border: rgba(255, 255, 255, 0.11);
+  --glass-border-bright: rgba(255, 255, 255, 0.3);
+  --glass-border-accent: rgba(255, 255, 255, 0.45);
+
+  /* Reflections & Depth */
+  --glass-reflection: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    transparent 50%
+  );
+  --glass-inner-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18),
+                       inset 0 -1px 2px rgba(0, 0, 0, 0.5);
+  --glass-shadow: 0 20px 45px -12px rgba(0, 0, 0, 0.75),
+                  0 0 0 1px rgba(255, 255, 255, 0.06);
+
+  /* Blur Intensities */
+  --blur-sm: blur(14px);
+  --blur-md: blur(22px);
+  --blur-lg: blur(32px);
+}
+
+/* Minimal Pro Specific Component Overrides */
+[data-theme="minimal-pro"] .glass-card {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  box-shadow: var(--glass-shadow);
+}
+
+[data-theme="minimal-pro"] .glass-btn-primary {
+  background: #ffffff;
+  border-color: #ffffff;
+  color: #0a0a0c;
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="minimal-pro"] .glass-btn-primary:hover {
+  background: #f4f4f5;
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Minimalist Monochrome Sphere */
+[data-theme="minimal-pro"] .glass-sphere {
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.45) 0%,
+    rgba(161, 161, 170, 0.25) 30%,
+    rgba(82, 82, 91, 0.2) 60%,
+    rgba(20, 20, 24, 0.95) 100%
+  );
+  box-shadow: inset -10px -15px 30px rgba(0, 0, 0, 0.9),
+              inset 6px 8px 18px rgba(255, 255, 255, 0.4),
+              0 20px 45px rgba(0, 0, 0, 0.8),
+              0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+[data-theme="minimal-pro"] .glass-sphere-core {
+  background: radial-gradient(circle, #ffffff 0%, #a1a1aa 60%, transparent 100%);
+  opacity: 0.5;
+}

@@ -1,0 +1,129 @@
+/**
+ * FLUXDROPE - Peer-to-Peer End-to-End Encrypted File Sharing
+ * holographic.css - Theme 7: Holographic
+ * Aesthetics: Sci-fi volumetric projection, iridescent pearlescence,
+ * laser cyan & prismatic magenta, holographic scanlines, and 3D diffraction.
+ */
+
+[data-theme="holographic"],
+:root[data-theme="holographic"] {
+  /* Theme Identity */
+  --theme-id: "holographic";
+  --theme-name: "Holographic";
+
+  /* Color Palette */
+  --bg-surface: #050b14;
+  --bg-gradient: radial-gradient(130% 125% at 50% 0%, #0a2034 0%, #061322 50%, #02070f 100%);
+  --bg-mesh: radial-gradient(at 10% 20%, rgba(34, 211, 238, 0.24) 0px, transparent 48%),
+             radial-gradient(at 85% 20%, rgba(244, 114, 182, 0.24) 0px, transparent 50%),
+             radial-gradient(at 50% 80%, rgba(129, 140, 248, 0.22) 0px, transparent 52%);
+
+  /* Typography Colors */
+  --text-primary: #e0f2fe;
+  --text-secondary: #bae6fd;
+  --text-muted: #47728f;
+  --text-inverted: #020d18;
+
+  /* Accent Vibrancies (Laser Cyan, Prismatic Magenta, Iridescent Gold) */
+  --accent-primary: #22d3ee;       /* Laser Cyan */
+  --accent-secondary: #f472b6;     /* Prismatic Magenta */
+  --accent-tertiary: #fde047;      /* Iridescent Gold */
+  --accent-gradient: linear-gradient(135deg, #22d3ee 0%, #c084fc 40%, #f472b6 75%, #fde047 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #67e8f9 0%, #d8b4fe 40%, #f9a8d4 75%, #fef08a 100%);
+  --accent-glow: 0 0 35px rgba(34, 211, 238, 0.55);
+  --accent-glow-secondary: 0 0 35px rgba(244, 114, 182, 0.5);
+
+  /* Status Colors */
+  --status-success: #34d399;
+  --status-warning: #fde047;
+  --status-error: #f43f5e;
+  --status-info: #22d3ee;
+
+  /* Glassmorphism Surface Tokens (Volumetric Projection Glass) */
+  --glass-bg: rgba(6, 24, 44, 0.65);
+  --glass-bg-subtle: rgba(6, 24, 44, 0.38);
+  --glass-bg-elevated: rgba(10, 42, 75, 0.82);
+  --glass-bg-interactive: rgba(34, 211, 238, 0.1);
+
+  /* Glass Borders */
+  --glass-border: rgba(34, 211, 238, 0.26);
+  --glass-border-bright: rgba(244, 114, 182, 0.6);
+  --glass-border-accent: #22d3ee;
+
+  /* Reflections & Depth */
+  --glass-reflection: linear-gradient(
+    135deg,
+    rgba(34, 211, 238, 0.28) 0%,
+    rgba(244, 114, 182, 0.16) 45%,
+    transparent 100%
+  );
+  --glass-inner-shadow: inset 0 1px 2px rgba(34, 211, 238, 0.42),
+                       inset 0 -1px 3px rgba(0, 0, 0, 0.55);
+  --glass-shadow: 0 20px 55px -10px rgba(0, 0, 0, 0.72),
+                  0 0 30px rgba(34, 211, 238, 0.24);
+
+  /* Blur Intensities */
+  --blur-sm: blur(12px);
+  --blur-md: blur(22px);
+  --blur-lg: blur(34px);
+}
+
+/* Holographic Specific Component Overrides */
+[data-theme="holographic"] .glass-card {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  box-shadow: var(--glass-inner-shadow), var(--glass-shadow);
+  position: relative;
+}
+
+/* Scanline Overlay on Holographic Surfaces */
+[data-theme="holographic"] .glass-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(34, 211, 238, 0.03) 0px,
+    rgba(34, 211, 238, 0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+[data-theme="holographic"] .glass-btn-primary {
+  background: var(--accent-gradient);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #041220;
+  font-weight: var(--fw-bold);
+  box-shadow: 0 8px 25px -4px rgba(34, 211, 238, 0.55),
+              var(--glass-inner-shadow);
+}
+
+[data-theme="holographic"] .glass-btn-primary:hover {
+  background: var(--accent-gradient-hover);
+  box-shadow: 0 12px 30px -4px rgba(34, 211, 238, 0.75),
+              var(--accent-glow);
+}
+
+/* Holographic 3D Diffraction Sphere */
+[data-theme="holographic"] .glass-sphere {
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(34, 211, 238, 0.4) 28%,
+    rgba(244, 114, 182, 0.28) 55%,
+    rgba(6, 20, 36, 0.95) 100%
+  );
+  box-shadow: inset -10px -15px 30px rgba(0, 0, 0, 0.75),
+              inset 8px 10px 20px rgba(34, 211, 238, 0.55),
+              0 20px 50px rgba(0, 0, 0, 0.7),
+              0 0 40px rgba(34, 211, 238, 0.45);
+}
+
+[data-theme="holographic"] .glass-sphere-core {
+  background: linear-gradient(135deg, #22d3ee 0%, #f472b6 60%, #fde047 100%);
+  opacity: 0.8;
+}

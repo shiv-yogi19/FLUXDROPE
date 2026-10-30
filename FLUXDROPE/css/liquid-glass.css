@@ -1,0 +1,760 @@
+/**
+ * FLUXDROPE - Peer-to-Peer End-to-End Encrypted File Sharing
+ * liquid-glass.css - Liquid Glass Morphism Design System
+ * Features: Multi-tier blur, reflections, inner depth, border gradients,
+ * animated shimmers, 3D glass sphere, and reactive glass controls.
+ */
+
+/* ==========================================================================
+   1. BACKDROP BLUR & GLASS TIERS
+   ========================================================================== */
+
+:root {
+  --blur-xs: blur(6px);
+  --blur-sm: blur(12px);
+  --blur-md: blur(20px);
+  --blur-lg: blur(32px);
+  --blur-xl: blur(48px);
+  --blur-liquid: blur(40px) saturate(180%);
+
+  /* Dynamic Glass Highlights & Shadows */
+  --glass-specular: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0.05) 30%,
+    transparent 80%
+  );
+  --glass-specular-soft: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    transparent 60%
+  );
+  --glass-depth-rim: inset 0 1px 1px 0 rgba(255, 255, 255, 0.28),
+                     inset 0 -1px 2px 0 rgba(0, 0, 0, 0.45);
+  --glass-shadow-soft: 0 10px 30px -8px rgba(0, 0, 0, 0.4),
+                       0 0 0 1px var(--glass-border);
+  --glass-shadow-deep: 0 24px 60px -12px rgba(0, 0, 0, 0.65),
+                       0 0 0 1px var(--glass-border);
+}
+
+/* Fallback for browsers that do not support backdrop-filter */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .glass-card,
+  .glass-panel,
+  .glass-btn,
+  .glass-input,
+  .glass-badge,
+  .frosted-overlay {
+    background-color: rgba(15, 23, 42, 0.94) !important;
+  }
+}
+
+/* ==========================================================================
+   2. GLASS CARDS
+   ========================================================================== */
+
+.glass-card {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-2xl);
+  -webkit-backdrop-filter: var(--blur-md);
+  backdrop-filter: var(--blur-md);
+  box-shadow: var(--glass-shadow-deep);
+  box-shadow: var(--glass-inner-shadow), var(--glass-shadow);
+  padding: var(--space-xl);
+  overflow: hidden;
+  transition: transform var(--transition-normal),
+              box-shadow var(--transition-normal),
+              border-color var(--transition-normal);
+}
+
+/* Specular Reflection highlight on top of card */
+.glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: var(--glass-specular);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Card Interactive Hover */
+.glass-card-interactive {
+  cursor: pointer;
+}
+
+.glass-card-interactive:hover {
+  transform: translateY(-3px) scale(1.006);
+  border-color: var(--glass-border-bright);
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.7),
+              0 0 20px var(--accent-glow),
+              var(--glass-inner-shadow);
+}
+
+.glass-card-interactive:active {
+  transform: translateY(-1px) scale(0.995);
+  box-shadow: 0 15px 35px -8px rgba(0, 0, 0, 0.6),
+              var(--glass-inner-shadow);
+}
+
+/* Glow Card */
+.glass-card-glow {
+  position: relative;
+}
+
+.glass-card-glow::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: var(--accent-gradient);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.25;
+  filter: blur(12px);
+  transition: opacity var(--transition-normal);
+}
+
+.glass-card-glow:hover::after {
+  opacity: 0.55;
+}
+
+/* Size Variants */
+.glass-card-sm {
+  padding: var(--space-md);
+  border-radius: var(--radius-lg);
+}
+
+.glass-card-lg {
+  padding: var(--space-2xl);
+  border-radius: var(--radius-3xl);
+}
+
+/* ==========================================================================
+   3. GLASS PANELS & SURFACES
+   ========================================================================== */
+
+.glass-panel {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  -webkit-backdrop-filter: var(--blur-md);
+  backdrop-filter: var(--blur-md);
+  box-shadow: var(--glass-shadow-soft);
+  overflow: hidden;
+}
+
+.glass-panel-elevated {
+  background: var(--glass-bg-elevated);
+  border: 1px solid var(--glass-border-bright);
+  box-shadow: var(--glass-shadow-deep);
+  -webkit-backdrop-filter: var(--blur-lg);
+  backdrop-filter: var(--blur-lg);
+}
+
+.glass-panel-subtle {
+  background: var(--glass-bg-subtle);
+  border: 1px solid var(--glass-border);
+  box-shadow: none;
+  -webkit-backdrop-filter: var(--blur-sm);
+  backdrop-filter: var(--blur-sm);
+}
+
+.glass-panel-frost {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: var(--blur-liquid);
+  backdrop-filter: var(--blur-liquid);
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.15),
+              0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Glass Header, Sidebar & Bottom Bar */
+.glass-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-header);
+  background: var(--glass-bg-elevated);
+  border-bottom: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: var(--blur-lg);
+  backdrop-filter: var(--blur-lg);
+  padding: var(--space-sm) var(--space-xl);
+}
+
+.glass-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--glass-border-bright);
+  opacity: 0.6;
+}
+
+.glass-sidebar {
+  position: relative;
+  background: var(--glass-bg);
+  border-right: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: var(--blur-xl);
+  backdrop-filter: var(--blur-xl);
+  display: flex;
+  flex-direction: column;
+}
+
+.glass-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-bottom-nav);
+  background: var(--glass-bg-elevated);
+  border-top: 1px solid var(--glass-border);
+  -webkit-backdrop-filter: var(--blur-xl);
+  backdrop-filter: var(--blur-xl);
+  padding: var(--space-xs) var(--space-md);
+  padding-bottom: calc(var(--space-xs) + var(--safe-bottom));
+}
+
+/* ==========================================================================
+   4. GLASS BUTTONS
+   ========================================================================== */
+
+.glass-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  min-height: var(--touch-target-min);
+  padding: var(--space-xs) var(--space-lg);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  background: var(--glass-bg-interactive);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-pill);
+  -webkit-backdrop-filter: var(--blur-sm);
+  backdrop-filter: var(--blur-sm);
+  box-shadow: var(--glass-depth-rim);
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+  transition: all var(--transition-fast);
+}
+
+.glass-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: var(--glass-specular-soft);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: var(--glass-border-bright);
+  transform: translateY(-1.5px);
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.4),
+              var(--glass-depth-rim);
+  color: #ffffff;
+}
+
+.glass-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.5),
+              inset 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+.glass-btn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Button Variants */
+.glass-btn-primary {
+  background: var(--accent-gradient);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.4),
+              var(--glass-depth-rim);
+}
+
+.glass-btn-primary:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 14px 30px -5px rgba(56, 189, 248, 0.6),
+              var(--accent-glow),
+              var(--glass-depth-rim);
+}
+
+.glass-btn-secondary {
+  background: var(--glass-bg-elevated);
+  border-color: var(--glass-border-bright);
+}
+
+.glass-btn-accent {
+  background: rgba(56, 189, 248, 0.18);
+  border-color: var(--glass-border-accent);
+  color: var(--accent-primary);
+}
+
+.glass-btn-accent:hover {
+  background: rgba(56, 189, 248, 0.3);
+  color: #ffffff;
+}
+
+.glass-btn-danger {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.45);
+  color: #fca5a5;
+}
+
+.glass-btn-danger:hover {
+  background: rgba(239, 68, 68, 0.35);
+  border-color: #ef4444;
+  color: #ffffff;
+  box-shadow: 0 10px 25px -5px rgba(239, 68, 68, 0.4);
+}
+
+.glass-btn-icon {
+  width: var(--touch-target-min);
+  height: var(--touch-target-min);
+  padding: 0;
+  border-radius: var(--radius-full);
+}
+
+.glass-btn-sm {
+  min-height: 32px;
+  padding: var(--space-2xs) var(--space-sm);
+  font-size: var(--fs-xs);
+  border-radius: var(--radius-pill);
+}
+
+.glass-btn-lg {
+  min-height: 52px;
+  padding: var(--space-sm) var(--space-2xl);
+  font-size: var(--fs-md);
+  border-radius: var(--radius-pill);
+}
+
+/* ==========================================================================
+   5. GLASS INPUTS & CONTROLS
+   ========================================================================== */
+
+.glass-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.glass-input,
+.glass-textarea,
+.glass-select {
+  width: 100%;
+  min-height: var(--touch-target-min);
+  padding: var(--space-xs) var(--space-md);
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  color: var(--text-primary);
+  background: var(--glass-bg-subtle);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  -webkit-backdrop-filter: var(--blur-sm);
+  backdrop-filter: var(--blur-sm);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35),
+              inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: all var(--transition-fast);
+}
+
+.glass-input::placeholder,
+.glass-textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+.glass-input:hover,
+.glass-textarea:hover,
+.glass-select:hover {
+  border-color: var(--glass-border-bright);
+}
+
+.glass-input:focus,
+.glass-textarea:focus,
+.glass-select:focus {
+  background: var(--glass-bg);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.25),
+              inset 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.glass-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.glass-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.7)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+.glass-select option {
+  background-color: #0d1222;
+  color: #f8fafc;
+}
+
+/* Floating Label Support */
+.glass-field-group {
+  position: relative;
+  margin-bottom: var(--space-md);
+}
+
+.glass-field-group .glass-label {
+  display: block;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2xs);
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   6. GLASS BADGES & PILLS
+   ========================================================================== */
+
+.glass-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: 0.2em 0.7em;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  border-radius: var(--radius-sm);
+  background: var(--glass-bg-subtle);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  -webkit-backdrop-filter: var(--blur-xs);
+  backdrop-filter: var(--blur-xs);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  white-space: nowrap;
+}
+
+.glass-badge-pill {
+  border-radius: var(--radius-pill);
+  padding: 0.25em 0.85em;
+}
+
+.glass-badge-accent {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: var(--accent-primary);
+}
+
+.glass-badge-success {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: var(--status-success);
+}
+
+.glass-badge-warning {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: var(--status-warning);
+}
+
+.glass-badge-error {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: var(--status-error);
+}
+
+.glass-badge-info {
+  background: rgba(6, 182, 212, 0.15);
+  border-color: rgba(6, 182, 212, 0.4);
+  color: var(--status-info);
+}
+
+/* ==========================================================================
+   7. BORDER GRADIENTS & REFLECTION SYSTEM
+   ========================================================================== */
+
+.border-gradient {
+  position: relative;
+}
+
+.border-gradient::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--accent-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.border-glow-hover:hover {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+/* Glossy reflection bar */
+.gloss-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.02) 60%,
+    transparent 100%
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ==========================================================================
+   8. ANIMATED SHIMMER EFFECT
+   ========================================================================== */
+
+@keyframes glass-shimmer {
+  0% {
+    transform: translateX(-150%) skewX(-20deg);
+  }
+  50%, 100% {
+    transform: translateX(200%) skewX(-20deg);
+  }
+}
+
+.shimmer-overlay {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 20%,
+    rgba(255, 255, 255, 0.22) 50%,
+    rgba(255, 255, 255, 0.03) 80%,
+    transparent 100%
+  );
+  transform: translateX(-150%) skewX(-20deg);
+  animation: glass-shimmer 3.5s infinite var(--ease-smooth);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.shimmer-border {
+  position: relative;
+  background-clip: padding-box;
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    var(--text-primary) 0%,
+    #ffffff 40%,
+    var(--accent-primary) 50%,
+    #ffffff 60%,
+    var(--text-primary) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shimmer-pan 3s linear infinite;
+}
+
+@keyframes text-shimmer-pan {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* ==========================================================================
+   9. 3D LIQUID GLASS SPHERE COMPONENT
+   ========================================================================== */
+
+.glass-sphere-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+}
+
+.glass-sphere {
+  position: relative;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.35) 0%,
+    rgba(56, 189, 248, 0.25) 30%,
+    rgba(168, 85, 247, 0.18) 60%,
+    rgba(15, 23, 42, 0.85) 100%
+  );
+  -webkit-backdrop-filter: var(--blur-md);
+  backdrop-filter: var(--blur-md);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: inset -10px -15px 30px rgba(0, 0, 0, 0.75),
+              inset 8px 10px 20px rgba(255, 255, 255, 0.45),
+              0 20px 50px rgba(0, 0, 0, 0.6),
+              0 0 35px var(--accent-glow);
+  transform-style: preserve-3d;
+  transition: transform var(--transition-normal);
+}
+
+/* Specular Light Reflection on Top Rim */
+.glass-sphere::before {
+  content: "";
+  position: absolute;
+  top: 10%;
+  left: 20%;
+  width: 35%;
+  height: 25%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.4) 40%,
+    transparent 80%
+  );
+  transform: rotate(-30deg);
+  pointer-events: none;
+  filter: blur(1px);
+}
+
+/* Refraction Rim at the bottom */
+.glass-sphere::after {
+  content: "";
+  position: absolute;
+  bottom: 8%;
+  right: 15%;
+  width: 45%;
+  height: 20%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    var(--accent-primary) 0%,
+    rgba(168, 85, 247, 0.3) 50%,
+    transparent 85%
+  );
+  filter: blur(6px);
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Inner Pulsing Core */
+.glass-sphere-core {
+  position: absolute;
+  inset: 25%;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  filter: blur(12px);
+  opacity: 0.65;
+  animation: sphere-core-pulse 3s infinite ease-in-out alternate;
+}
+
+@keyframes sphere-core-pulse {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0.85;
+    filter: blur(16px);
+  }
+}
+
+/* Orbital Rings for Sphere */
+.glass-sphere-ring {
+  position: absolute;
+  inset: -15%;
+  border: 1.5px dashed var(--glass-border-bright);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: rotateX(65deg) rotateY(15deg);
+  animation: sphere-ring-orbit 12s linear infinite;
+}
+
+@keyframes sphere-ring-orbit {
+  0% {
+    transform: rotateX(65deg) rotateY(15deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(65deg) rotateY(15deg) rotateZ(360deg);
+  }
+}
+
+/* Sphere Sizing */
+.sphere-sm { width: 48px; height: 48px; }
+.sphere-md { width: 96px; height: 96px; }
+.sphere-lg { width: 140px; height: 140px; }
+.sphere-xl { width: 220px; height: 220px; }
+
+/* ==========================================================================
+   10. FROSTED OVERLAYS & MODALS
+   ========================================================================== */
+
+.frosted-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-backdrop);
+  background: rgba(3, 5, 12, 0.72);
+  -webkit-backdrop-filter: var(--blur-lg);
+  backdrop-filter: var(--blur-lg);
+}
+
+.modal-backdrop-frosted {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  background: rgba(4, 7, 18, 0.75);
+  -webkit-backdrop-filter: var(--blur-xl);
+  backdrop-filter: var(--blur-xl);
+}
+
+.modal-content-glass {
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: var(--glass-bg-elevated);
+  border: 1px solid var(--glass-border-bright);
+  border-radius: var(--radius-3xl);
+  box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.85),
+              0 0 30px var(--accent-glow),
+              var(--glass-depth-rim);
+  padding: var(--space-2xl);
+  position: relative;
+  animation: card-entrance 0.35s var(--ease-spring);
+}

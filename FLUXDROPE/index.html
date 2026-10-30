@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>FLUXDROPE — Peer-to-Peer Encrypted File Sharing | Created By Shiv Yogi</title>
+  
+  <meta name="description" content="FLUXDROPE is a high-speed peer-to-peer end-to-end encrypted file sharing platform. Zero server storage, instant WebRTC direct streaming, AES-256-GCM encryption. Created By Shiv Yogi.">
+  <meta name="keywords" content="FLUXDROPE, WebRTC, P2P file share, end-to-end encryption, AES-GCM, fast file transfer, Shiv Yogi, direct browser sharing, secure air drop, zero cloud">
+  <meta name="author" content="Shiv Yogi">
+  <meta name="theme-color" content="#030712">
+  <meta name="color-scheme" content="dark">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="FLUXDROPE">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://fluxdrope.pages.dev/">
+  <meta property="og:title" content="FLUXDROPE — Peer-to-Peer Encrypted File Sharing">
+  <meta property="og:description" content="Fast, private, browser-to-browser encrypted transfers with zero cloud intermediaries. Created By Shiv Yogi.">
+  <meta property="og:image" content="assets/images/og-fluxdrope.png">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://fluxdrope.pages.dev/">
+  <meta property="twitter:title" content="FLUXDROPE — Peer-to-Peer Encrypted File Sharing">
+  <meta property="twitter:description" content="Direct P2P file transfers with zero cloud logging. WebRTC & AES-256-GCM. Created By Shiv Yogi.">
+  <meta property="twitter:image" content="assets/images/og-fluxdrope.png">
+
+  <!-- PWA & Favicon -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
+
+  <!-- Content Security Policy -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' wss: ws: https: blob:; worker-src 'self' blob:;">
+
+  <!-- Fonts preload -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/liquid-glass.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Theme Stylesheets -->
+  <link rel="stylesheet" href="css/themes/aurora-glass.css">
+  <link rel="stylesheet" href="css/themes/obsidian.css">
+  <link rel="stylesheet" href="css/themes/crystal.css">
+  <link rel="stylesheet" href="css/themes/quantum.css">
+  <link rel="stylesheet" href="css/themes/minimal-pro.css">
+  <link rel="stylesheet" href="css/themes/deep-space.css">
+  <link rel="stylesheet" href="css/themes/holographic.css">
+  <link rel="stylesheet" href="css/themes/liquid-motion.css">
+
+  <!-- External CDN Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!--
+    FLUXDROPE Configuration
+    ========================
+    After deploying your Cloudflare Worker, replace the URL below with your
+    actual worker WebSocket endpoint, e.g.:
+      window.FLUXDROPE_WORKER_URL = 'wss://fluxdrope-signaling.YOUR_SUBDOMAIN.workers.dev';
+
+    See cloudflare-worker/README.md for full deployment instructions.
+  -->
+  <script>
+    window.FLUXDROPE_WORKER_URL = ''; // Set this to your deployed Cloudflare Worker WSS URL
+  </script>
+
+  <!-- Main Application Script -->
+  <script type="module" src="js/app.js"></script>
+</head>
+<body data-theme="dark-obsidian" data-layout="standard-liquid" class="antialiased">
+  <!-- Dynamic Ambient Background Glows -->
+  <div class="ambient-background" aria-hidden="true">
+    <div class="ambient-glow glow-primary"></div>
+    <div class="ambient-glow glow-secondary"></div>
+    <div class="ambient-glow glow-accent"></div>
+    <div class="ambient-mesh-grid"></div>
+  </div>
+
+  <!-- Global Application Shell -->
+  <div id="app-container" class="app-viewport">
+
+    <!-- ==========================================================================
+         SECTION 1: #intro-screen — Cinematic Intro
+         ========================================================================== -->
+    <section id="intro-screen" class="screen screen-intro active" aria-label="Intro Screen">
+      <canvas id="particle-canvas" class="particle-canvas" aria-hidden="true"></canvas>
+
+      <div class="intro-content">
+        <!-- 3D Liquid Glass Sphere Illustration -->
+        <div class="glass-sphere-wrapper">
+          <svg class="glass-sphere" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Luminescent Glass Sphere">
+            <defs>
+              <radialGradient id="sphereGrad" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.9" />
+                <stop offset="35%" stop-color="#6366f1" stop-opacity="0.6" />
+                <stop offset="70%" stop-color="#a855f7" stop-opacity="0.3" />
+                <stop offset="100%" stop-color="#090d16" stop-opacity="0.95" />
+              </radialGradient>
+              <linearGradient id="orbitGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8" />
+                <stop offset="50%" stop-color="#818cf8" />
+                <stop offset="100%" stop-color="#c084fc" />
+              </linearGradient>
+              <filter id="liquidGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="10" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+            </defs>
+            <!-- Outer Glow Rings -->
+            <ellipse cx="120" cy="120" rx="100" ry="38" stroke="url(#orbitGrad)" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.6" transform="rotate(-25 120 120)" class="spin-slow" />
+            <ellipse cx="120" cy="120" rx="112" ry="42" stroke="url(#orbitGrad)" stroke-width="1" stroke-dasharray="4 8" opacity="0.4" transform="rotate(35 120 120)" class="spin-reverse-slow" />
+            <!-- Sphere Body -->
+            <circle cx="120" cy="120" r="76" fill="url(#sphereGrad)" filter="url(#liquidGlow)" />
+            <!-- Highlight Shimmer -->
+            <ellipse cx="98" cy="92" rx="34" ry="18" fill="#ffffff" opacity="0.45" transform="rotate(-30 98 92)" />
+            <circle cx="145" cy="148" r="8" fill="#38bdf8" opacity="0.5" />
+            <circle cx="92" cy="144" r="5" fill="#c084fc" opacity="0.6" />
+          </svg>
+        </div>
+
+        <!-- FLUXDROPE Brand Logo (Hexagonal / Crystalline FD Monogram) -->
+        <div class="intro-logo-container">
+          <svg class="brand-logo-svg" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="FLUXDROPE Logo">
+            <defs>
+              <linearGradient id="logoHexStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8" />
+                <stop offset="50%" stop-color="#818cf8" />
+                <stop offset="100%" stop-color="#a855f7" />
+              </linearGradient>
+              <linearGradient id="monogramGrad" x1="20%" y1="20%" x2="80%" y2="80%">
+                <stop offset="0%" stop-color="#f8fafc" />
+                <stop offset="40%" stop-color="#67e8f9" />
+                <stop offset="100%" stop-color="#c084fc" />
+              </linearGradient>
+              <filter id="logoBloom" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="6" result="glow" />
+                <feMerge>
+                  <feMergeNode in="glow" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <!-- Hexagonal Crystal Frame -->
+            <polygon points="70,10 122,40 122,100 70,130 18,100 18,40" stroke="url(#logoHexStroke)" stroke-width="3" fill="rgba(15, 23, 42, 0.65)" filter="url(#logoBloom)" stroke-linejoin="round" />
+            <!-- Inner Facet Crystal Accents -->
+            <polygon points="70,22 110,46 110,94 70,118 30,94 30,46" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" stroke-dasharray="6 4" fill="none" />
+            <!-- FD Monogram Paths -->
+            <!-- F -->
+            <path d="M46 44 H68 M46 44 V96 M46 68 H62" stroke="url(#monogramGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+            <!-- D -->
+            <path d="M74 44 H88 C99 44 104 53 104 70 C104 87 99 96 88 96 H74 V44 Z" stroke="url(#monogramGrad)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+            <!-- Central Flux Sparkle -->
+            <circle cx="70" cy="70" r="3.5" fill="#38bdf8" filter="url(#logoBloom)" />
+          </svg>
+        </div>
+
+        <h1 class="brand-name">FLUXDROPE</h1>
+        <p class="creator-credit">Created By Shiv Yogi</p>
+        <p class="tagline" id="intro-tagline">Pure P2P · End-to-End Encrypted · Zero Cloud Footprint</p>
+
+        <div class="intro-actions">
+          <button id="intro-enter-btn" class="glass-btn primary-glow-btn" type="button" aria-label="Enter FLUXDROPE">
+            <span>Launch Portal</span>
+            <svg class="btn-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 2: #welcome-screen — First-Time Setup
+         ========================================================================== -->
+    <section id="welcome-screen" class="screen screen-welcome" aria-label="First Time Welcome Setup">
+      <div class="welcome-container">
+        <div class="glass-card welcome-card">
+          <!-- Animated Small Logo Header -->
+          <div class="card-logo-badge">
+            <svg class="mini-logo-svg" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <polygon points="70,12 120,41 120,99 70,128 20,99 20,41" stroke="#38bdf8" stroke-width="4" fill="rgba(30, 41, 59, 0.7)" />
+              <path d="M48 46 H66 M48 46 V94 M48 68 H62" stroke="#ffffff" stroke-width="5" stroke-linecap="round" />
+              <path d="M74 46 H86 C96 46 102 54 102 70 C102 86 96 94 86 94 H74 V46 Z" stroke="#38bdf8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+
+          <h2 class="welcome-heading">Welcome to FLUXDROPE</h2>
+          <p class="welcome-subheading">Enter your display name to begin establishing secure peer-to-peer data channels.</p>
+
+          <form id="welcome-form" class="welcome-form" onsubmit="return false;">
+            <div class="form-group">
+              <label for="display-name-input" class="form-label">
+                <svg class="label-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span>Your Peer Display Name</span>
+              </label>
+              <div class="input-wrapper">
+                <input type="text" id="display-name-input" class="glass-input" placeholder="e.g. CyberVanguard, QuantumFox" maxlength="32" autocomplete="nickname" required>
+                <button type="button" id="randomize-name-btn" class="input-accessory-btn" title="Generate Random Alias" aria-label="Randomize Display Name">
+                  <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="23 4 23 10 17 10"></polyline>
+                    <polyline points="1 20 1 14 7 14"></polyline>
+                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" id="continue-btn" class="glass-btn primary-btn full-width">
+              <span>Continue to Workspace</span>
+              <svg class="btn-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </form>
+
+          <div class="privacy-note">
+            <svg class="privacy-shield-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="M9 12l2 2 4-4"></path>
+            </svg>
+            <p>Your alias remains strictly on your local browser memory. Files are streamed directly between devices with zero cloud intermediaries or server logs.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 3: #dashboard — Main Application Hub
+         ========================================================================== -->
+    <section id="dashboard" class="screen screen-dashboard" aria-label="Dashboard Workspace">
+      <div class="dashboard-layout">
+        
+        <!-- Desktop Sidebar -->
+        <aside class="sidebar" aria-label="Main Navigation">
+          <div class="sidebar-brand">
+            <svg class="sidebar-logo-svg" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <polygon points="70,12 120,41 120,99 70,128 20,99 20,41" stroke="#38bdf8" stroke-width="5" fill="rgba(30, 41, 59, 0.8)" />
+              <path d="M48 46 H66 M48 46 V94 M48 68 H62" stroke="#ffffff" stroke-width="5" stroke-linecap="round" />
+              <path d="M74 46 H86 C96 46 102 54 102 70 C102 86 96 94 86 94 H74 V46 Z" stroke="#38bdf8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="brand-text-block">
+              <span class="brand-title">FLUXDROPE</span>
+              <span class="brand-tag">v2.4.0 Encrypted P2P</span>
+            </div>
+          </div>
+
+          <nav class="sidebar-nav">
+            <button type="button" class="nav-item active" data-nav-target="dashboard">
+              <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <span>Dashboard</span>
+            </button>
+            <button type="button" class="nav-item" data-nav-target="send-screen">
+              <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+              <span>Send Files</span>
+            </button>
+            <button type="button" class="nav-item" data-nav-target="receive-screen">
+              <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              </svg>
+              <span>Receive Files</span>
+            </button>
+            <button type="button" class="nav-item" data-nav-target="settings-screen">
+              <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Settings</span>
+            </button>
+            <button type="button" class="nav-item" id="sidebar-about-btn" data-modal="about-modal">
+              <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span>About FLUXDROPE</span>
+            </button>
+          </nav>
+
+          <div class="sidebar-footer">
+            <div class="user-status-card">
+              <div class="avatar-badge">
+                <span id="sidebar-avatar-initials">YO</span>
+              </div>
+              <div class="user-meta">
+                <span class="user-name" id="sidebar-display-name">Anonymous Explorer</span>
+                <span class="peer-id-label" id="sidebar-peer-id">Peer: Initializing...</span>
+              </div>
+            </div>
+            <div class="creator-badge-sidebar">
+              <span>Created By Shiv Yogi</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <main class="main-workspace" role="main">
+          <!-- Top Hero Bar -->
+          <header class="dashboard-hero">
+            <div class="hero-left">
+              <h1 class="hero-greeting" id="user-greeting">Welcome back, Explorer</h1>
+              <p class="hero-subtitle">High-speed peer-to-peer data channels ready. Direct memory-to-memory streaming.</p>
+            </div>
+            <div class="hero-right">
+              <div class="connection-status-pill" id="webrtc-indicator" title="WebRTC Direct P2P Channel Ready">
+                <span class="status-pulse-dot"></span>
+                <span class="status-text" id="signaling-status-label">WebRTC Engine Ready</span>
+              </div>
+            </div>
+          </header>
+
+          <!-- Primary Action Cards -->
+          <div class="action-cards-grid">
+            <!-- Send Card -->
+            <div class="action-card glass-card send-card" id="dashboard-send-btn" role="button" tabindex="0" aria-label="Send files now">
+              <div class="action-card-header">
+                <div class="action-icon-wrapper send-icon-glow">
+                  <svg class="action-card-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                  </svg>
+                </div>
+                <span class="action-badge">Sender Portal</span>
+              </div>
+              <div class="action-card-body">
+                <h2 class="action-title">SEND FILES</h2>
+                <p class="action-desc">Select any files or folders to share. Generates a secure high-entropy pairing code, live WebRTC QR code, or instant link.</p>
+              </div>
+              <div class="action-card-footer">
+                <span class="action-cta">Launch Secure Share</span>
+                <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Receive Card -->
+            <div class="action-card glass-card receive-card" id="dashboard-receive-btn" role="button" tabindex="0" aria-label="Receive files now">
+              <div class="action-card-header">
+                <div class="action-icon-wrapper receive-icon-glow">
+                  <svg class="action-card-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  </svg>
+                </div>
+                <span class="action-badge">Receiver Portal</span>
+              </div>
+              <div class="action-card-body">
+                <h2 class="action-title">RECEIVE FILES</h2>
+                <p class="action-desc">Connect to an active sender session by entering a pairing code, scanning a visual QR token, or accepting an incoming direct invite.</p>
+              </div>
+              <div class="action-card-footer">
+                <span class="action-cta">Join Transfer Session</span>
+                <svg class="arrow-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Secondary Grid: Recent Activity & Connection Diagnostics -->
+          <div class="dashboard-details-grid">
+            <!-- Recent Activity Panel -->
+            <div class="glass-card recent-activity">
+              <div class="card-header-row">
+                <div class="title-with-icon">
+                  <svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  <h3 class="panel-heading">Recent Transfers</h3>
+                </div>
+                <button type="button" id="clear-history-quick-btn" class="text-btn text-muted" title="Clear Recent Activity">Clear</button>
+              </div>
+              <div id="recent-transfers-list" class="recent-transfers-list">
+                <div class="empty-state-small">
+                  <svg class="empty-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                  <p class="empty-text">No transfers recorded in this browser session.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Connection Status Diagnostics -->
+            <div class="glass-card connection-status">
+              <div class="card-header-row">
+                <div class="title-with-icon">
+                  <svg class="section-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M5 12.55a11 11 0 0 1 14.08 0"></path>
+                    <path d="M1.42 9a16 16 0 0 1 21.16 0"></path>
+                    <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+                    <line x1="12" y1="20" x2="12.01" y2="20"></line>
+                  </svg>
+                  <h3 class="panel-heading">P2P Network Diagnostics</h3>
+                </div>
+                <span class="secure-badge">
+                  <svg class="badge-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <span>E2EE Active</span>
+                </span>
+              </div>
+
+              <div class="diagnostics-metrics">
+                <div class="metric-row">
+                  <span class="metric-key">WebRTC Data Channel:</span>
+                  <span class="metric-val status-val-online" id="diag-webrtc-state">Online & Listening</span>
+                </div>
+                <div class="metric-row">
+                  <span class="metric-key">Signaling Protocol:</span>
+                  <span class="metric-val" id="diag-signaling-protocol">Cloudflare Edge / WebSocket</span>
+                </div>
+                <div class="metric-row">
+                  <span class="metric-key">Cryptographic Engine:</span>
+                  <span class="metric-val" id="diag-crypto-algo">WebCrypto AES-256-GCM + PBKDF2</span>
+                </div>
+                <div class="metric-row">
+                  <span class="metric-key">NAT Traversal:</span>
+                  <span class="metric-val" id="diag-nat-state">STUN/TURN Auto-Negotiation</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+
+      <!-- Mobile Bottom Navigation Bar -->
+      <nav class="bottom-nav" aria-label="Mobile Navigation">
+        <button type="button" class="bottom-nav-item active" data-nav-target="dashboard">
+          <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <span>Home</span>
+        </button>
+        <button type="button" class="bottom-nav-item" data-nav-target="send-screen">
+          <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+          <span>Send</span>
+        </button>
+        <button type="button" class="bottom-nav-item" data-nav-target="receive-screen">
+          <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          </svg>
+          <span>Receive</span>
+        </button>
+        <button type="button" class="bottom-nav-item" data-nav-target="settings-screen">
+          <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Settings</span>
+        </button>
+      </nav>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 4: #send-screen — Sender Workflow
+         ========================================================================== -->
+    <section id="send-screen" class="screen screen-send" aria-label="Sender Workflow Screen">
+      <div class="screen-page-container">
+        
+        <!-- Sender Header -->
+        <header class="screen-top-header">
+          <button type="button" class="back-nav-btn" data-back-target="dashboard" aria-label="Back to Dashboard">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Dashboard</span>
+          </button>
+          <div class="screen-title-group">
+            <h1 class="screen-page-title">Send Files Encrypted</h1>
+            <p class="screen-page-subtitle">Zero cloud storage · Direct streaming between browsers</p>
+          </div>
+          <div class="header-action-placeholder"></div>
+        </header>
+
+        <!-- STEP 1: File Selection View -->
+        <div id="step-file-select" class="step-file-select">
+          <div class="glass-card file-picker-card">
+            
+            <!-- Drag and Drop Zone -->
+            <div id="drop-zone" class="drop-zone" role="region" aria-label="File Drop Area">
+              <div class="drop-zone-content">
+                <div class="cloud-icon-orb">
+                  <svg class="cloud-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+                    <polyline points="12 13 12 7 9 10"></polyline>
+                    <polyline points="12 7 15 10"></polyline>
+                  </svg>
+                </div>
+                <h3 class="drop-headline">Drag & Drop files or folders here</h3>
+                <p class="drop-subtext">Unlimited file size · WebRTC direct binary chunking</p>
+                <div class="drop-actions">
+                  <button type="button" id="browse-btn" class="glass-btn secondary-btn">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                    </svg>
+                    <span>Browse Files</span>
+                  </button>
+                  <input type="file" id="file-input" class="hidden-input" multiple aria-label="Select files to send">
+                </div>
+              </div>
+            </div>
+
+            <!-- Selected Files Staging List -->
+            <div id="selected-files-container" class="selected-files-container hidden">
+              <div class="file-list-header">
+                <div class="file-list-title-wrap">
+                  <h4 class="list-title">Staged Files for Transmission</h4>
+                  <span id="file-count-badge" class="count-badge">0 files</span>
+                </div>
+                <div class="file-list-meta">
+                  <span id="total-size" class="total-size-label">Total: 0 B</span>
+                  <button type="button" id="clear-files-btn" class="text-btn danger-text">Clear All</button>
+                </div>
+              </div>
+
+              <div id="file-list" class="file-list" role="list">
+                <!-- Dynamically populated via JS -->
+              </div>
+            </div>
+
+            <!-- Password Protection Settings Toggle -->
+            <div class="security-options-box">
+              <div class="secure-share-toggle">
+                <label class="toggle-control" for="enable-password-checkbox">
+                  <input type="checkbox" id="enable-password-checkbox" class="toggle-checkbox">
+                  <span class="toggle-slider"></span>
+                  <span class="toggle-label-text">
+                    <svg class="mini-shield-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    <span>Enable Password Protection</span>
+                  </span>
+                </label>
+                <span class="toggle-hint">Recipient must enter key to decrypt chunks</span>
+              </div>
+
+              <!-- Collapsible Password Input Section -->
+              <div id="password-section" class="password-section hidden">
+                <div class="password-grid">
+                  <div class="form-group">
+                    <label for="transfer-password" class="form-label">Transfer Secret Password</label>
+                    <div class="input-wrapper">
+                      <input type="password" id="transfer-password" class="glass-input" placeholder="Enter high-entropy password" autocomplete="new-password">
+                      <button type="button" class="toggle-password-visibility-btn" data-target="transfer-password" aria-label="Toggle Password Visibility">
+                        <svg class="eye-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                          <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="transfer-password-confirm" class="form-label">Confirm Password</label>
+                    <div class="input-wrapper">
+                      <input type="password" id="transfer-password-confirm" class="glass-input" placeholder="Repeat transfer password" autocomplete="new-password">
+                      <button type="button" class="toggle-password-visibility-btn" data-target="transfer-password-confirm" aria-label="Toggle Confirm Password Visibility">
+                        <svg class="eye-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                          <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Password Strength Visual Meter -->
+                <div class="password-meter-wrap">
+                  <div class="strength-track">
+                    <div id="password-strength-bar" class="strength-bar" style="width: 0%"></div>
+                  </div>
+                  <span id="password-strength-text" class="strength-text">Password Strength: None</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Proceed Button -->
+            <div class="step-footer">
+              <button type="button" id="next-step-btn" class="glass-btn primary-glow-btn full-width" disabled>
+                <span>Generate Secure Transfer Session</span>
+                <svg class="btn-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Session Created & Waiting for Peer View -->
+        <div id="step-session-created" class="step-session-created hidden">
+          <div class="session-created-grid">
+            
+            <!-- Left Column: Session Meta & Sharing Details -->
+            <div class="session-left-col">
+              <!-- Session Overview Card -->
+              <div class="glass-card session-summary-card">
+                <div class="card-badge-row">
+                  <span class="session-active-badge">
+                    <span class="pulsing-radar-dot"></span>
+                    <span>Session Live</span>
+                  </span>
+                  <div class="timer-badge" id="session-timer">
+                    <svg class="clock-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span id="session-timer-text">10:00</span>
+                  </div>
+                </div>
+
+                <h3 class="session-card-title">Share Session Info</h3>
+                <div class="session-stats-grid">
+                  <div class="stat-pill">
+                    <span class="stat-name">Sender Alias:</span>
+                    <strong class="stat-value" id="session-sender-name">Anonymous</strong>
+                  </div>
+                  <div class="stat-pill">
+                    <span class="stat-name">Selected Files:</span>
+                    <strong class="stat-value" id="session-file-count">0 files</strong>
+                  </div>
+                  <div class="stat-pill">
+                    <span class="stat-name">Total Payload:</span>
+                    <strong class="stat-value" id="session-total-size">0 MB</strong>
+                  </div>
+                  <div class="stat-pill">
+                    <span class="stat-name">Protection:</span>
+                    <strong class="stat-value" id="session-crypto-status">AES-256 E2EE</strong>
+                  </div>
+                </div>
+
+                <!-- Instant Share Link -->
+                <div class="share-field-group">
+                  <label for="share-url-display" class="field-label">Direct Peer URL</label>
+                  <div class="copy-input-cluster">
+                    <input type="text" id="share-url-display" class="glass-input share-input" readonly value="Generating secure link...">
+                    <button type="button" id="copy-url-btn" class="glass-btn secondary-btn icon-only-btn" title="Copy Transfer Link" aria-label="Copy Share URL">
+                      <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                      </svg>
+                    </button>
+                    <button type="button" id="open-url-btn" class="glass-btn secondary-btn icon-only-btn" title="Open Link in New Tab" aria-label="Open URL in New Tab">
+                      <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                        <polyline points="15 3 21 3 21 9"></polyline>
+                        <line x1="10" y1="14" x2="21" y2="3"></line>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 8-Digit Pairing Code Display -->
+                <div class="share-field-group">
+                  <label for="joining-code-display" class="field-label">Pairing Code (Format FLX-XXXX-XXXX)</label>
+                  <div class="code-cluster">
+                    <div id="joining-code-display" class="joining-code-display" role="textbox" aria-readonly="true">FLX-••••-••••</div>
+                    <button type="button" id="copy-code-btn" class="glass-btn secondary-btn" aria-label="Copy Pairing Code">
+                      <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                      </svg>
+                      <span>Copy Code</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Waiting for Receiver Status -->
+                <div class="waiting-peer-status" id="waiting-status">
+                  <div class="radar-ping-container" aria-hidden="true">
+                    <div class="ping-ring ring-1"></div>
+                    <div class="ping-ring ring-2"></div>
+                    <div class="ping-dot"></div>
+                  </div>
+                  <div class="waiting-text-group">
+                    <span class="waiting-headline" id="waiting-status-headline">Waiting for receiver to connect...</span>
+                    <span class="waiting-subline">Keep this tab open while establishing direct peer connection</span>
+                  </div>
+                </div>
+
+                <!-- Receiver Connected Notification -->
+                <div id="receiver-name-display" class="receiver-connected-banner hidden">
+                  <div class="peer-success-icon">
+                    <svg class="check-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                  </div>
+                  <div class="peer-info-text">
+                    <span class="peer-intro-lbl">Peer Connected:</span>
+                    <strong id="connected-peer-name" class="peer-name-val">Awaiting...</strong>
+                  </div>
+                </div>
+
+                <div class="session-cancel-box">
+                  <button type="button" id="cancel-transfer-btn" class="glass-btn danger-outline-btn full-width">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                    <span>Cancel Transfer Session</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Interactive 15-Template QR Code Section -->
+            <div class="session-right-col">
+              <div class="glass-card qr-card">
+                <div class="qr-header-row">
+                  <div class="qr-title-box">
+                    <svg class="qr-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="3" y="3" width="7" height="7"></rect>
+                      <rect x="14" y="3" width="7" height="7"></rect>
+                      <rect x="14" y="14" width="7" height="7"></rect>
+                      <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                    <h3 class="qr-card-title">Live Dynamic QR Token</h3>
+                  </div>
+                  <span class="qr-live-tag">Scan to Stream</span>
+                </div>
+
+                <!-- QR Display Container -->
+                <div id="qr-container" class="qr-container template-liquid-glass" role="img" aria-label="Generated Transfer QR Code">
+                  <div id="qrcode" class="qrcode-wrapper">
+                    <!-- QRCodeJS generates canvas/img here -->
+                  </div>
+                  <!-- Center Monogram Watermark -->
+                  <div class="qr-center-watermark" aria-hidden="true">
+                    <svg viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <polygon points="70,12 120,41 120,99 70,128 20,99 20,41" stroke="#38bdf8" stroke-width="8" fill="#090d16" />
+                      <path d="M48 46 H66 M48 46 V94 M48 68 H62" stroke="#ffffff" stroke-width="8" stroke-linecap="round" />
+                      <path d="M74 46 H86 C96 46 102 54 102 70 C102 86 96 94 86 94 H74 V46 Z" stroke="#38bdf8" stroke-width="8" stroke-linecap="round" />
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- 15 QR Design Template Switcher -->
+                <div class="qr-templates-section">
+                  <span class="qr-templates-label">Choose Stylized Glass Theme (15 Templates):</span>
+                  <div class="qr-template-scroll-grid" role="radiogroup" aria-label="QR Code Templates">
+                    <button type="button" class="qr-tmpl-btn active" data-template="classic" title="Classic Monochrome">Classic</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="neon-glow" title="Neon Glow">Neon Glow</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="cyberpunk" title="Cyberpunk">Cyberpunk</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="liquid-glass" title="Liquid Glass">Liquid Glass</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="matrix-emerald" title="Matrix Emerald">Matrix</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="aurora" title="Aurora Borealis">Aurora</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="sunset-amber" title="Sunset Amber">Sunset</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="cosmic-violet" title="Cosmic Violet">Cosmic</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="minimal-slate" title="Minimal Slate">Minimal</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="holographic" title="Holographic">Hologram</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="quartz-crystal" title="Quartz Crystal">Quartz</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="deep-ocean" title="Deep Ocean">Ocean</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="golden-royal" title="Golden Royal">Golden</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="rose-quartz" title="Rose Quartz">Rose</button>
+                    <button type="button" class="qr-tmpl-btn" data-template="stealth-mono" title="Monochrome Stealth">Stealth</button>
+                  </div>
+                </div>
+
+                <!-- QR Action Buttons -->
+                <div class="qr-action-row">
+                  <button type="button" id="download-qr-png" class="glass-btn secondary-btn sm-btn">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>PNG</span>
+                  </button>
+                  <button type="button" id="download-qr-svg" class="glass-btn secondary-btn sm-btn">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                    </svg>
+                    <span>SVG</span>
+                  </button>
+                  <button type="button" id="share-qr-btn" class="glass-btn secondary-btn sm-btn">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <circle cx="18" cy="5" r="3"></circle>
+                      <circle cx="6" cy="12" r="3"></circle>
+                      <circle cx="18" cy="19" r="3"></circle>
+                      <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                      <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                    <span>Share</span>
+                  </button>
+                  <button type="button" id="fullscreen-qr-btn" class="glass-btn secondary-btn sm-btn">
+                    <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <polyline points="9 21 3 21 3 15"></polyline>
+                      <line x1="21" y1="3" x2="14" y2="10"></line>
+                      <line x1="3" y1="21" x2="10" y2="14"></line>
+                    </svg>
+                    <span>Expand</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 5: #receive-screen — Receiver Workflow
+         ========================================================================== -->
+    <section id="receive-screen" class="screen screen-receive" aria-label="Receiver Workflow Screen">
+      <div class="screen-page-container">
+        
+        <!-- Receiver Header -->
+        <header class="screen-top-header">
+          <button type="button" class="back-nav-btn" data-back-target="dashboard" aria-label="Back to Dashboard">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Dashboard</span>
+          </button>
+          <div class="screen-title-group">
+            <h1 class="screen-page-title">Receive Files</h1>
+            <p class="screen-page-subtitle">Direct browser-to-browser WebRTC incoming data channel</p>
+          </div>
+          <div class="header-action-placeholder"></div>
+        </header>
+
+        <!-- Receiver Mode Selector Card -->
+        <div class="glass-card receiver-entry-card" id="receive-entry-card">
+          <!-- Join Tabs -->
+          <div class="join-tabs-nav" role="tablist">
+            <button type="button" class="tab-btn active" role="tab" aria-selected="true" data-tab="tab-code" id="btn-tab-code">
+              <svg class="tab-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+              <span>By 8-Digit Code</span>
+            </button>
+            <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="tab-qr" id="btn-tab-qr">
+              <svg class="tab-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="7" height="7"></rect>
+                <rect x="14" y="3" width="7" height="7"></rect>
+                <rect x="14" y="14" width="7" height="7"></rect>
+                <rect x="3" y="14" width="7" height="7"></rect>
+              </svg>
+              <span>Scan QR Code</span>
+            </button>
+            <button type="button" class="tab-btn" role="tab" aria-selected="false" data-tab="tab-link" id="btn-tab-link">
+              <svg class="tab-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+              <span>By Link (Auto-Detect)</span>
+            </button>
+          </div>
+
+          <!-- TAB PANEL 1: By Code -->
+          <div id="tab-panel-code" class="tab-panel active" role="tabpanel" aria-labelledby="btn-tab-code">
+            <div class="tab-inner-box">
+              <label for="join-code-input" class="panel-input-label">Enter 8-Digit FLUXDROPE Session Code</label>
+              <div class="code-entry-cluster">
+                <input type="text" id="join-code-input" class="glass-input code-formatted-input" placeholder="FLX-XXXX-XXXX" maxlength="13" autocomplete="off" spellcheck="false">
+                <button type="button" id="join-code-btn" class="glass-btn primary-glow-btn">
+                  <span>Connect to Peer</span>
+                  <svg class="btn-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </button>
+              </div>
+              <p class="tab-hint">Ask the sender for the code shown in their active session window.</p>
+            </div>
+          </div>
+
+          <!-- TAB PANEL 2: By QR Code -->
+          <div id="tab-panel-qr" class="tab-panel hidden" role="tabpanel" aria-labelledby="btn-tab-qr">
+            <div class="tab-inner-box qr-scanner-container" id="qr-scanner-section">
+              <div class="qr-camera-viewport" id="qr-video-container">
+                <video id="qr-video" class="qr-video-stream" playsinline muted></video>
+                <div class="scanner-reticle" aria-hidden="true">
+                  <div class="reticle-corner corner-tl"></div>
+                  <div class="reticle-corner corner-tr"></div>
+                  <div class="reticle-corner corner-bl"></div>
+                  <div class="reticle-corner corner-br"></div>
+                  <div class="laser-scanner-line"></div>
+                </div>
+                <div class="camera-fallback-msg" id="camera-status-msg">
+                  <svg class="cam-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                  <span>Point camera at FLUXDROPE QR token or activate lens</span>
+                </div>
+              </div>
+              <div class="scanner-controls">
+                <button type="button" id="start-qr-scan-btn" class="glass-btn primary-btn">
+                  <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                    <circle cx="12" cy="13" r="4"></circle>
+                  </svg>
+                  <span>Start Camera Scanner</span>
+                </button>
+                <button type="button" id="stop-qr-scan-btn" class="glass-btn secondary-btn hidden">Stop Camera</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB PANEL 3: By Link -->
+          <div id="tab-panel-link" class="tab-panel hidden" role="tabpanel" aria-labelledby="btn-tab-link">
+            <div class="tab-inner-box">
+              <label for="join-link-input" class="panel-input-label">Paste Full FLUXDROPE Invite Link</label>
+              <div class="link-entry-cluster">
+                <input type="url" id="join-link-input" class="glass-input" placeholder="https://fluxdrope.pages.dev/#session=..." autocomplete="off">
+                <button type="button" id="join-link-btn" class="glass-btn primary-glow-btn">
+                  <span>Parse & Connect</span>
+                </button>
+              </div>
+              <p class="tab-hint">If you clicked a shared link directly, FLUXDROPE will auto-detect the session parameters.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- File Preview & Transfer Acceptance Card (Shown upon Peer Handshake) -->
+        <div id="file-preview-card" class="file-preview-card glass-card hidden">
+          <div class="preview-header-row">
+            <div class="preview-sender-meta">
+              <div class="sender-avatar-badge">
+                <span id="preview-avatar-initial">S</span>
+              </div>
+              <div class="sender-text-info">
+                <span class="preview-sender-label">Incoming Transfer Offer From:</span>
+                <strong id="preview-sender-name" class="preview-sender-name">Peer Sender</strong>
+              </div>
+            </div>
+            <div id="preview-security-badge" class="security-status-badge">
+              <svg class="badge-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+              </svg>
+              <span>E2EE Handshake Verified</span>
+            </div>
+          </div>
+
+          <!-- Offered File List -->
+          <div class="preview-files-section">
+            <div class="preview-subheading-row">
+              <span class="preview-subheading">Offered Files for Download:</span>
+              <span id="preview-total-size" class="preview-total-size">Total: 0 B</span>
+            </div>
+            <div id="preview-file-list" class="preview-file-list" role="list">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
+          <!-- Password Prompt Section (Conditioned on Password Protection) -->
+          <div id="password-input-section" class="password-input-section hidden">
+            <div class="password-prompt-box">
+              <div class="prompt-icon">
+                <svg class="key-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 2l-2 2m-1.5 1.5L16 7l-1.5-1.5-1.5 1.5-1.5-1.5-1.5 1.5-1.5-1.5L6 8a6 6 0 1 0 7 7l5-5-2-2 5-5z"></path>
+                </svg>
+              </div>
+              <div class="prompt-text">
+                <h4 class="prompt-title">Encrypted Transfer Key Required</h4>
+                <p class="prompt-desc">This transmission was sealed by the sender with AES-256-GCM. Enter the secret passphrase to unlock.</p>
+              </div>
+            </div>
+            <div class="receiver-password-input-wrapper">
+              <input type="password" id="receiver-password-input" class="glass-input" placeholder="Enter transfer passphrase" autocomplete="current-password">
+              <span id="password-error-msg" class="password-error-msg hidden">Invalid passphrase. Decryption verification failed.</span>
+            </div>
+          </div>
+
+          <!-- Action Buttons: Accept / Reject -->
+          <div class="preview-action-row">
+            <button type="button" id="reject-transfer-btn" class="glass-btn danger-outline-btn">
+              <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+              <span>Reject Transfer</span>
+            </button>
+            <button type="button" id="accept-transfer-btn" class="glass-btn primary-glow-btn flex-grow-btn">
+              <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              </svg>
+              <span>Accept & Stream Files</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 6: #transfer-screen — Active P2P Transfer
+         ========================================================================== -->
+    <section id="transfer-screen" class="screen screen-transfer" aria-label="Active Transfer Screen">
+      <div class="transfer-screen-container">
+        
+        <!-- Active Transfer Main Glass Card -->
+        <div class="glass-card transfer-main-card">
+          
+          <!-- Liquid Beam Transfer Animation Container -->
+          <div id="animation-container" class="animation-container" aria-hidden="true">
+            <div class="quantum-tunnel-node sender-node">
+              <div class="node-icon-core">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <span class="node-label" id="tunnel-sender-label">Sender</span>
+            </div>
+
+            <!-- Flowing Data Stream Particles -->
+            <div class="beam-track">
+              <div class="flowing-flux-beam"></div>
+              <div class="flux-packet packet-1"></div>
+              <div class="flux-packet packet-2"></div>
+              <div class="flux-packet packet-3"></div>
+            </div>
+
+            <div class="quantum-tunnel-node receiver-node">
+              <div class="node-icon-core">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <span class="node-label" id="tunnel-receiver-label">Receiver</span>
+            </div>
+          </div>
+
+          <!-- Transfer Status Header -->
+          <div class="transfer-header">
+            <div class="transfer-badge-top">
+              <span id="p2p-type-badge" class="connection-badge direct-p2p">
+                <span class="indicator-dot"></span>
+                <span>Direct P2P (WebRTC DataChannel)</span>
+              </span>
+            </div>
+            <h2 class="transfer-title">
+              <span class="transfer-action-word" id="transfer-mode-label">Transferring</span>
+              <span id="current-file-name" class="transfer-file-highlight">filename.dat</span>
+            </h2>
+            <div class="participants">
+              <span class="sender-tag" id="transfer-sender-name">Sender</span>
+              <svg class="transfer-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+              <span class="receiver-tag" id="transfer-receiver-name">Receiver</span>
+            </div>
+          </div>
+
+          <!-- Progress Visuals -->
+          <div class="progress-section">
+            <div class="progress-track-wrapper">
+              <div class="progress-bar-track">
+                <div id="progress-bar" class="progress-bar-fill" style="width: 0%"></div>
+              </div>
+              <div class="progress-glow-point"></div>
+            </div>
+
+            <!-- Transfer Metrics Dashboard -->
+            <div class="transfer-metrics-grid">
+              <div class="metric-card">
+                <span class="metric-title">Transfer Progress</span>
+                <strong id="progress-percent" class="metric-num">0%</strong>
+              </div>
+              <div class="metric-card">
+                <span class="metric-title">Live Transfer Speed</span>
+                <strong id="transfer-speed" class="metric-num">0.0 MB/s</strong>
+              </div>
+              <div class="metric-card">
+                <span class="metric-title">Time Remaining</span>
+                <strong id="transfer-eta" class="metric-num">Calculating...</strong>
+              </div>
+              <div class="metric-card">
+                <span class="metric-title">Bytes Transferred</span>
+                <strong id="bytes-display" class="metric-num">0 B / 0 B</strong>
+              </div>
+            </div>
+
+            <!-- Status Banner -->
+            <div class="transfer-status-banner">
+              <svg class="spin-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="2" x2="12" y2="6"></line>
+                <line x1="12" y1="18" x2="12" y2="22"></line>
+                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+                <line x1="2" y1="12" x2="6" y2="12"></line>
+                <line x1="18" y1="12" x2="22" y2="12"></line>
+                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
+                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
+              </svg>
+              <span id="transfer-status-text">Streaming encrypted 64KB binary chunks over WebRTC...</span>
+            </div>
+          </div>
+
+          <!-- Multi-File Breakdown List -->
+          <div class="file-list-progress-section">
+            <span class="per-file-heading">Transferred Items Queue:</span>
+            <div id="per-file-progress-list" class="file-list-progress" role="list">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
+          <!-- Abort Button -->
+          <div class="transfer-abort-box">
+            <button type="button" id="cancel-active-transfer-btn" class="glass-btn danger-outline-btn">
+              <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="15" y1="9" x2="9" y2="15"></line>
+                <line x1="9" y1="9" x2="15" y2="15"></line>
+              </svg>
+              <span>Abort Transfer</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 7: #success-screen — Transfer Complete
+         ========================================================================== -->
+    <section id="success-screen" class="screen screen-success" aria-label="Transfer Complete Screen">
+      <div class="success-screen-container">
+        
+        <div class="glass-card success-card">
+          <!-- Animated Checkmark Emblem -->
+          <div id="success-animation-container" class="success-emblem-wrap">
+            <div class="emblem-pulse-ring"></div>
+            <svg class="success-check-svg" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Transfer Successful">
+              <circle cx="40" cy="40" r="36" stroke="#22c55e" stroke-width="4" fill="rgba(34, 197, 94, 0.1)" />
+              <path d="M24 40 L35 51 L56 30" stroke="#22c55e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" class="check-draw-path" />
+            </svg>
+          </div>
+
+          <h2 class="success-title">Transfer Complete!</h2>
+          <p class="success-subtitle">Direct end-to-end encrypted transmission finished with zero errors.</p>
+
+          <!-- Summary Metrics Pill Grid -->
+          <div class="summary-metrics-grid">
+            <div class="summary-metric-pill">
+              <span class="pill-label">Total Transferred</span>
+              <strong id="summary-size" class="pill-value">0 MB</strong>
+            </div>
+            <div class="summary-metric-pill">
+              <span class="pill-label">Elapsed Time</span>
+              <strong id="summary-time" class="pill-value">0s</strong>
+            </div>
+            <div class="summary-metric-pill">
+              <span class="pill-label">Avg Speed</span>
+              <strong id="summary-speed" class="pill-value">0 MB/s</strong>
+            </div>
+            <div class="summary-metric-pill">
+              <span class="pill-label">Integrity Hash</span>
+              <strong id="summary-integrity" class="pill-value">SHA-256 Validated</strong>
+            </div>
+          </div>
+
+          <!-- Downloadable File Items (Receiver) / Verified Items (Sender) -->
+          <div class="completed-files-section">
+            <h4 class="completed-files-title">Payload Files:</h4>
+            <div id="completed-file-list" class="completed-file-list" role="list">
+              <!-- Populated by JS with download triggers for receiver or status checks for sender -->
+            </div>
+          </div>
+
+          <!-- Success Navigation Buttons -->
+          <div class="success-actions-row">
+            <button type="button" id="new-transfer-btn" class="glass-btn primary-glow-btn">
+              <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>Start New Transfer</span>
+            </button>
+            <button type="button" id="home-from-success-btn" class="glass-btn secondary-btn">
+              <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <span>Back to Dashboard</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 8: #expired-screen — Expired Session
+         ========================================================================== -->
+    <section id="expired-screen" class="screen screen-expired" aria-label="Session Expired Screen">
+      <div class="expired-backdrop" aria-hidden="true">
+        <canvas id="expired-particle-canvas" class="expired-particle-canvas"></canvas>
+      </div>
+
+      <div class="expired-content-box">
+        <!-- Slowly Rotating Darkened Glass Sphere -->
+        <div class="expired-sphere-wrap">
+          <svg class="expired-glass-sphere spin-slow" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <radialGradient id="expiredSphereGrad" cx="30%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#475569" stop-opacity="0.8" />
+                <stop offset="60%" stop-color="#1e293b" stop-opacity="0.9" />
+                <stop offset="100%" stop-color="#020617" stop-opacity="1" />
+              </radialGradient>
+            </defs>
+            <circle cx="80" cy="80" r="64" fill="url(#expiredSphereGrad)" stroke="rgba(239, 68, 68, 0.4)" stroke-width="1.5" />
+            <ellipse cx="65" cy="60" rx="28" ry="12" fill="#ffffff" opacity="0.1" transform="rotate(-30 65 60)" />
+            <line x1="56" y1="56" x2="104" y2="104" stroke="#ef4444" stroke-width="3" stroke-linecap="round" />
+            <line x1="104" y1="56" x2="56" y2="104" stroke="#ef4444" stroke-width="3" stroke-linecap="round" />
+          </svg>
+        </div>
+
+        <h1 class="expired-heading">TRANSFER EXPIRED</h1>
+        <p class="expired-message">
+          The peer-to-peer session has ended, reached its expiration window, or the sender has disconnected.
+          In accordance with FLUXDROPE zero-knowledge architecture, all cryptographic key material and memory buffers have been purged.
+        </p>
+
+        <div class="expired-actions">
+          <button type="button" id="return-home-btn" class="glass-btn primary-btn">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+              <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            <span>Return to Dashboard</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SECTION 9: #settings-screen — Settings & Preferences
+         ========================================================================== -->
+    <section id="settings-screen" class="screen screen-settings" aria-label="Settings and Preferences Screen">
+      <div class="screen-page-container">
+        
+        <!-- Settings Header -->
+        <header class="screen-top-header">
+          <button type="button" class="back-nav-btn" data-back-target="dashboard" aria-label="Back to Dashboard">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Dashboard</span>
+          </button>
+          <div class="screen-title-group">
+            <h1 class="screen-page-title">Settings & System Preferences</h1>
+            <p class="screen-page-subtitle">Personalize your FLUXDROPE appearance, ergonomics, and cryptographic defaults</p>
+          </div>
+          <div class="header-action-placeholder"></div>
+        </header>
+
+        <div class="settings-grid">
+          
+          <!-- Column 1: Identity & Layout Selection -->
+          <div class="settings-col">
+            <!-- Display Name Configuration -->
+            <div class="glass-card settings-card">
+              <div class="settings-card-header">
+                <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <h3 class="setting-title">Display Name / Peer Alias</h3>
+              </div>
+              <div class="setting-body">
+                <p class="setting-description">Identifies your device in local WebRTC discovery and active transfer rooms.</p>
+                <div class="settings-name-input-group">
+                  <input type="text" id="settings-display-name" class="glass-input" maxlength="32" placeholder="Enter peer alias">
+                  <button type="button" id="save-name-btn" class="glass-btn primary-btn">Save Alias</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Layout Selection (8 Layout Modes) -->
+            <div class="glass-card settings-card">
+              <div class="settings-card-header">
+                <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <line x1="3" y1="9" x2="21" y2="9"></line>
+                  <line x1="9" y1="21" x2="9" y2="9"></line>
+                </svg>
+                <h3 class="setting-title">Interface Layout Mode (8 Options)</h3>
+              </div>
+              <div class="setting-body">
+                <p class="setting-description">Select your favored viewport presentation architecture.</p>
+                <div class="layout-picker-grid" role="radiogroup" aria-label="Layout Selection">
+                  
+                  <div class="layout-card active" data-layout-mode="standard-liquid" role="radio" aria-checked="true" tabindex="0">
+                    <div class="layout-preview-sketch standard-sketch"></div>
+                    <span class="layout-name">Standard Liquid</span>
+                  </div>
+
+                  <div class="layout-card" data-layout-mode="compact-modern" role="radio" aria-checked="false" tabindex="0">
+                    <div class="layout-preview-sketch compact-sketch"></div>
+                    <span class="layout-name">Compact Modern</span>
+                  </div>
+
+                  <div class="layout-card" data-layout-mode="cyber-hud" role="radio" aria-checked="false" tabindex="0">
+                    <div class="layout-preview-sketch cyber-sketch"></div>
+                    <span class="layout-name">Cyber HUD</span>
+                  </div>
+
+                  <div class="layout-card" data-layout-mode="minimal-focus" role="radio" aria-checked="false" tabindex="0">
+                    <div class="layout-preview-sketch minimal-sketch"></div>
+                    <span class="layout-name">Minimal Focus</span>
+                  </div>
+
+                  <div class="layout-card" data-layout-mode="split-studio" role="radio" aria-checked="false" tabindex="0">
+                    <div class="layout-preview-sketch split-sketch"></div>
+                    <span class="layout-name">Split Studio</span>
+                  </div>
+
+                  <div class="layout-card" data-layout-mode="terminal-deck" role="radio" aria-checked="false" tabindex="0">
+                    <div class="layout-preview-sketch terminal-sketch"></div>
+                    <span class="layout-name">Terminal Deck</span>
+                  </div>
+
+                  <div class="layout-card" data-layout-mode="zen-flow" role="radio" aria-checked="false" tabindex="0">
+                    <div class="layout-preview-sketch zen-sketch"></div>
+                    <span class="layout-name">Zen Flow</span>
+                  </div>
+
+                  <div class="layout-card" data-layout-mode="immersive-glass" role="radio" aria-checked="false" tabindex="0">
+                    <div class="layout-preview-sketch immersive-sketch"></div>
+                    <span class="layout-name">Immersive Glass</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <!-- Theme Selection (8 Aesthetic Color Schemes) -->
+            <div class="glass-card settings-card">
+              <div class="settings-card-header">
+                <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 2a10 10 0 0 1 0 20z"></path>
+                </svg>
+                <h3 class="setting-title">Liquid Theme Palette (8 Themes)</h3>
+              </div>
+              <div class="setting-body">
+                <p class="setting-description">Curated liquid-glass color spaces with real-time CSS variable interpolation.</p>
+                <div class="theme-swatches-grid" role="radiogroup" aria-label="Theme Selection">
+                  
+                  <div class="theme-swatch-item active" data-theme-name="dark-obsidian" role="radio" aria-checked="true" tabindex="0">
+                    <div class="swatch-disc swatch-obsidian"></div>
+                    <span class="swatch-label">Dark Obsidian</span>
+                  </div>
+
+                  <div class="theme-swatch-item" data-theme-name="cyber-neon" role="radio" aria-checked="false" tabindex="0">
+                    <div class="swatch-disc swatch-cyber"></div>
+                    <span class="swatch-label">Cyber Neon</span>
+                  </div>
+
+                  <div class="theme-swatch-item" data-theme-name="deep-ocean" role="radio" aria-checked="false" tabindex="0">
+                    <div class="swatch-disc swatch-ocean"></div>
+                    <span class="swatch-label">Deep Ocean</span>
+                  </div>
+
+                  <div class="theme-swatch-item" data-theme-name="matrix-emerald" role="radio" aria-checked="false" tabindex="0">
+                    <div class="swatch-disc swatch-matrix"></div>
+                    <span class="swatch-label">Emerald Matrix</span>
+                  </div>
+
+                  <div class="theme-swatch-item" data-theme-name="aurora-borealis" role="radio" aria-checked="false" tabindex="0">
+                    <div class="swatch-disc swatch-aurora"></div>
+                    <span class="swatch-label">Aurora Borealis</span>
+                  </div>
+
+                  <div class="theme-swatch-item" data-theme-name="sunset-velvet" role="radio" aria-checked="false" tabindex="0">
+                    <div class="swatch-disc swatch-sunset"></div>
+                    <span class="swatch-label">Sunset Velvet</span>
+                  </div>
+
+                  <div class="theme-swatch-item" data-theme-name="cosmic-amethyst" role="radio" aria-checked="false" tabindex="0">
+                    <div class="swatch-disc swatch-amethyst"></div>
+                    <span class="swatch-label">Cosmic Amethyst</span>
+                  </div>
+
+                  <div class="theme-swatch-item" data-theme-name="titanium-silver" role="radio" aria-checked="false" tabindex="0">
+                    <div class="swatch-disc swatch-titanium"></div>
+                    <span class="swatch-label">Titanium Silver</span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2: System Toggles, Security Diagnostics & Local Data -->
+          <div class="settings-col">
+            <!-- Animation and Audio Ergonomics -->
+            <div class="glass-card settings-card">
+              <div class="settings-card-header">
+                <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+                <h3 class="setting-title">Animation & Audio Controls</h3>
+              </div>
+              <div class="setting-body">
+                <div class="setting-toggle-row">
+                  <div class="toggle-text-block">
+                    <span class="toggle-name">Liquid Particle Backgrounds</span>
+                    <span class="toggle-desc">Dynamic WebGL and Canvas ambient motion</span>
+                  </div>
+                  <label class="toggle-control" for="toggle-animations">
+                    <input type="checkbox" id="toggle-animations" class="toggle-checkbox" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div class="setting-toggle-row">
+                  <div class="toggle-text-block">
+                    <span class="toggle-name">Reduced Motion Mode</span>
+                    <span class="toggle-desc">Respect accessibility and low-power GPU states</span>
+                  </div>
+                  <label class="toggle-control" for="toggle-reduced-motion">
+                    <input type="checkbox" id="toggle-reduced-motion" class="toggle-checkbox">
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div class="setting-toggle-row">
+                  <div class="toggle-text-block">
+                    <span class="toggle-name">Cryptographic Sound FX</span>
+                    <span class="toggle-desc">Audio cues for packet flow, pairing & completion</span>
+                  </div>
+                  <label class="toggle-control" for="toggle-sound">
+                    <input type="checkbox" id="toggle-sound" class="toggle-checkbox" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+
+                <div class="setting-toggle-row">
+                  <div class="toggle-text-block">
+                    <span class="toggle-name">Auto-Trigger Browser Download</span>
+                    <span class="toggle-desc">Immediately prompt save file when receiver finishes assembling chunks</span>
+                  </div>
+                  <label class="toggle-control" for="toggle-auto-download">
+                    <input type="checkbox" id="toggle-auto-download" class="toggle-checkbox" checked>
+                    <span class="toggle-slider"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Privacy Information & Cryptographic Architecture -->
+            <div class="glass-card settings-card">
+              <div class="settings-card-header">
+                <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+                <h3 class="setting-title">Cryptographic Architecture</h3>
+              </div>
+              <div class="setting-body">
+                <div class="privacy-bullet-item">
+                  <strong>Zero Server Retention:</strong> Files are sliced into binary memory buffers and streamed over direct WebRTC SCTP data channels.
+                </div>
+                <div class="privacy-bullet-item">
+                  <strong>Hardware-Accelerated AES-256-GCM:</strong> Optional passwords derive 256-bit symmetric keys via PBKDF2 (100,000 SHA-256 iterations) with authenticated tags for each slice.
+                </div>
+                <div class="privacy-bullet-item">
+                  <strong>Double E2EE:</strong> In addition to the native DTLS transport encryption in WebRTC, payloads are encrypted application-side before transmission.
+                </div>
+              </div>
+            </div>
+
+            <!-- Local Data Management -->
+            <div class="glass-card settings-card">
+              <div class="settings-card-header">
+                <svg class="setting-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                <h3 class="setting-title">Local Data & Session Management</h3>
+              </div>
+              <div class="setting-body">
+                <p class="setting-description">Wipe stored aliases, transfer history logs, and cache keys from this browser instance.</p>
+                <button type="button" id="clear-data-btn" class="glass-btn danger-outline-btn">
+                  <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="3 6 5 6 21 6"></polyline>
+                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                  </svg>
+                  <span>Clear All Local Storage Data</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- About Card -->
+            <div class="glass-card settings-card about-app-card">
+              <div class="about-card-inner">
+                <div class="creator-stamp">
+                  <h4 class="creator-name">FLUXDROPE</h4>
+                  <p class="creator-by">Created By Shiv Yogi</p>
+                  <span class="version-tag">Version 2.4.0 Production Build</span>
+                </div>
+                <p class="about-blurb">
+                  Engineered with WebRTC DataChannels, Web Cryptography API, and liquid glass styling for ultimate peer privacy.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </div><!-- /#app-container -->
+
+  <!-- ==========================================================================
+       MODALS & OVERLAYS
+       ========================================================================== -->
+
+  <!-- Fullscreen QR Code Modal -->
+  <div id="qr-fullscreen-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-qr-title">
+    <div class="modal-backdrop" data-close-modal="qr-fullscreen-modal"></div>
+    <div class="glass-card modal-window qr-modal-window">
+      <div class="modal-header">
+        <h3 id="modal-qr-title" class="modal-title">Pairing QR Code</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="qr-fullscreen-modal" aria-label="Close QR Modal">
+          <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body modal-qr-body">
+        <div id="modal-qr-target" class="modal-qr-target"></div>
+        <div class="modal-code-display" id="modal-qr-code-text">FLX-••••-••••</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="glass-btn secondary-btn" data-close-modal="qr-fullscreen-modal">Dismiss</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- About FLUXDROPE Information Modal -->
+  <div id="about-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-about-title">
+    <div class="modal-backdrop" data-close-modal="about-modal"></div>
+    <div class="glass-card modal-window">
+      <div class="modal-header">
+        <h3 id="modal-about-title" class="modal-title">About FLUXDROPE</h3>
+        <button type="button" class="modal-close-btn" data-close-modal="about-modal" aria-label="Close About Modal">
+          <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-body about-modal-body">
+        <div class="about-hero-graphic">
+          <svg class="about-logo-svg" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <polygon points="70,12 120,41 120,99 70,128 20,99 20,41" stroke="#38bdf8" stroke-width="4" fill="rgba(30, 41, 59, 0.7)" />
+            <path d="M48 46 H66 M48 46 V94 M48 68 H62" stroke="#ffffff" stroke-width="5" stroke-linecap="round" />
+            <path d="M74 46 H86 C96 46 102 54 102 70 C102 86 96 94 86 94 H74 V46 Z" stroke="#38bdf8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <h4 class="about-app-name">FLUXDROPE</h4>
+          <span class="about-app-author">Created By Shiv Yogi</span>
+        </div>
+
+        <p class="about-text-paragraph">
+          FLUXDROPE was built to solve privacy vulnerabilities in contemporary file sharing. 
+          Standard file transfer services upload your data to intermediate servers and cloud storage buckets. 
+          FLUXDROPE completely eliminates intermediate storage through direct peer-to-peer browser links.
+        </p>
+
+        <div class="feature-checklist">
+          <div class="check-item">
+            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Real-time WebRTC DataChannel transfer with no file size limitations</span>
+          </div>
+          <div class="check-item">
+            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Optional client-side AES-GCM 256-bit encryption with PBKDF2</span>
+          </div>
+          <div class="check-item">
+            <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>Zero trackers, zero analytics, zero logs</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="glass-btn primary-btn full-width" data-close-modal="about-modal">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+</body>
+</html>

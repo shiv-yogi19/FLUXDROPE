@@ -1,0 +1,26 @@
+{
+  "name": "fluxdrope",
+  "version": "1.0.0",
+  "description": "FLUXDROPE - Liquid Glass Peer-to-Peer File Transfer. Created By Shiv Yogi.",
+  "type": "module",
+  "main": "src/worker/index.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node tests/runAllTests.js",
+    "deploy": "wrangler deploy"
+  },
+  "keywords": [
+    "fluxdrope",
+    "shiv-yogi",
+    "webrtc",
+    "p2p",
+    "file-transfer",
+    "cloudflare-workers",
+    "durable-objects",
+    "liquid-glass",
+    "e2ee"
+  ],
+  "author": "Shiv Yogi",
+  "license": "MIT"
+}
